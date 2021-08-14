@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+  
+}
+body{
+  background-color: rgba(158, 193, 194, 0.5);
+}
+
+button:hover{
+    opacity: 0.8;
+}
+
+#name{
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  
+}
+
+#all {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 400px;
+}
+
+#buttons #login, #buttons #password{
+
+  display: flexbox;
+  justify-content: center;
+  margin: auto;
+  height: 10%;
+  width: 9.9%;
+  margin-bottom: 10px;
+}
+
+
+#buttons #create{
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  height: 10%;
+  width: 20%;
+}
+
+button {
+  cursor: pointer;
+}
+
+#inputs {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  height: 80px;
+  justify-content: space-between;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#inputs input{
+   height: 35%;
+}
