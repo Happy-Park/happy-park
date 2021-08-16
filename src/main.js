@@ -10,7 +10,7 @@ function createWindow () {
   }
   })
   
-  onlineStatusWindow.loadFile('./pages/home.html')
+  onlineStatusWindow.loadFile('./pages/login.html')
 }
 
 app.whenReady().then(() => {
