@@ -1,18 +1,3 @@
+#Bem vindo ao Happy Park!
 
-# happy-park
-# Sistema de gerenciamento e compra de ingressos para parques de diversão.
-
-var express = require('express');
-var http = require('http');
-var path = require('path');
-
-var appServer = express();
-appServer.use(express.static(path.join(__dirname, '')));
-
-appServer.get('*', (req, res) => {
-    res.sendFile(__dirname + 'index.html');
-});
-
-http.createServer(appServer).listen(3007, function() {
-    console.log('Express server listening on port');
-});
+#O happy park é um sistema de gerencimento de parque de diverão, com suporte para usuários convencionais comprarem e agendarem sua ida ao parque, bem como um sistema robusto para o administrador gerenciar as lojas, atrações, funcionários e outras informações que desejar.

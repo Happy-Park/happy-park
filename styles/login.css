@@ -8,7 +8,7 @@ body{
 }
 
 button:hover{
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 #name{
@@ -22,11 +22,10 @@ button:hover{
   text-align: center;
   height: 100%;
   width: 100%;
-  margin-top: 400px;
+  margin-top: 35vh;
 }
 
 #buttons #login, #buttons #password{
-
   display: flexbox;
   justify-content: center;
   margin: auto;
