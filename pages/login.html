@@ -13,31 +13,52 @@
   </head>
   
   <body>
-    <div class="half1">
+    <div id="half1" >
       <div class="flex-box container-box">
         <div class="content-box"> 
-          <h1>Criar conta</h1> 
-          <button id="create-account">Cadastre-se</button>
+          <h1 id="text-half1">Criar conta</h1> 
+          <button id="create-account" onClick="ManipulaConteudo()">Cadastre-se</button>
         </div>  
       </div>
     </div>
 
-    <div class="half2">
+    <div id="half2" >
       <div class="flex-box container-box">
           <div class="content-box">
-            <h2 id="login">Log In</h1>
-            <div class="inputs">
-              <input type="text" value="" placeholder="Usuário" />
-              <input type="password" value="" placeholder="Senha" />
+            <div id="login">
+              <h2 id="login">Entrar</h2>
+              <div id="inputs">
+                <input type="text" value="" placeholder="Usuário" />
+                <input type="password" value="" placeholder="Senha" />
+                <div id="buttons">
+                  <button id="login-btn">Entrar</button>
+                  <!-- <button id="password">Esqueci minha senha</button> -->
+                  <!-- <button id="create">Não tem uma conta? Crie uma agora mesmo!</button> -->
+                </div>
+              </div> 
             </div>
-            <div id="buttons">
-              <button id="login-btn">Login</button>
-              <!-- <button id="password">Esqueci minha senha</button> -->
-              <!-- <button id="create">Não tem uma conta? Crie uma agora mesmo!</button> -->
-            </div>
+
+            <div id="register" style="display: none"> 
+              <h2 id="register">Registrar-se</h2>
+              <div id="inputs">
+                <input type="name" value="" placeholder="Nome" />
+                <input type="username" value="" placeholder="Usuário" />
+                <input type="email" value="" placeholder="Email" />
+                <input type="cpf" value="" placeholder="CPF" />
+                <input type="birthdate" value="" placeholder="Data de Nascimento" />
+                <input type="password" value="" placeholder="Senha" />
+                
+                
+                
+                <div id="buttons">
+                  <button id="login-btn">Registrar</button>
+                </div>    
+            </div>  
           </div>
         </div>  
       </div>  
     </div>
+    <script src="../src/login.js"></script>
 </body>
 </html>
+

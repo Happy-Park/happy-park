@@ -39,15 +39,15 @@ body {
   text-align: center;
 }
 
-.half1 {
+#half1 {
   margin: 0;
   width: 45%;
   float: left;
   height: 100%;
-  margin-top: -4vh;
+  margin-top: -5vh;
 }
 
-.half1 h1{
+#half1 h1{
   color: white;
 }
 
@@ -64,7 +64,7 @@ body {
 	text-decoration: none; 
 }
 
-.half2 {
+#half2 {
   margin: 0;
   float: left;
   width: 55%;
@@ -72,7 +72,7 @@ body {
   background: white;
 }
 
-#login {
+#half2 h2 {
   text-align: left;  
 }
 
@@ -92,7 +92,7 @@ body {
   margin-top: 5%;
 }
 
-.half2 input {
+#half2 input {
   display: list-item;
   border-width: 0 0 0 0;
   border-bottom: 1px solid grey;
@@ -102,6 +102,6 @@ body {
   font-size: 100%;
 }
 
-.half2 .inputs {
+#half2 #inputs {
   margin-top: 5%;
 }
