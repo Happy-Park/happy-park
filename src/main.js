@@ -1,32 +1,19 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
 
-function createWindow () {
-  const onlineStatusWindow = new BrowserWindow({
+let window;
+
+async function createWindow() {
+  window = new BrowserWindow({
     width: 1200,
     height: 700,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-  }
-  })
-  
-  onlineStatusWindow.loadFile('./pages/home.html')
+      enableRemoteModule: true,
+    },
+  });
+  window.loadFile(path.join(__dirname, "../pages/home.html"));
 }
 
-app.whenReady().then(() => {
-  createWindow()
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
-  })
-})
-
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
+app.on("ready", createWindow);

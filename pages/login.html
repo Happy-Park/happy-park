@@ -1,23 +1,43 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="pt-br">
   <head>
-    <meta charset="UTF-8" />
-    <link href="../styles/login.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/login.css">
     <title>Login</title>
+
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   </head>
+  
   <body>
-    <div id="all">
-      <h1 id="name">Faça seu login ou crie sua conta!</h1>
-      <div id="inputs">
-        <input type="text" value="" placeholder="Usuário" />
-        <input type="password" value="" placeholder="Senha" />
-      </div>
-      <div id="buttons">
-        <button id="login">Login</button>
-        <button id="password">Esqueci minha senha</button>
-        <button id="create">Não tem uma conta? Crie uma agora mesmo!</button>
+    <div class="half1">
+      <div class="flex-box container-box">
+        <div class="content-box"> 
+          <h1>Criar conta</h1> 
+          <button id="create-account"> <a href="../pages/signup.html">Cadastre-se</a></button>
+        </div>  
       </div>
     </div>
-    <scripts src=""></scripts>
-  </body>
+
+    <div class="half2">
+      <div class="flex-box container-box">
+          <div class="content-box">
+            <h2 id="login">Log In</h1>
+            <div class="inputs">
+              <input type="text" value="" placeholder="Usuário" />
+              <input type="password" value="" placeholder="Senha" />
+            </div>
+            <div id="buttons">
+              <button id="login-btn">Login</button>
+              <!-- <button id="password">Esqueci minha senha</button> -->
+              <!-- <button id="create">Não tem uma conta? Crie uma agora mesmo!</button> -->
+            </div>
+          </div>
+        </div>  
+      </div>  
+    </div>
+</body>
 </html>
