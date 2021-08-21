@@ -105,3 +105,9 @@ body {
 #half2 #inputs {
   margin-top: 5%;
 }
+
+select{
+  font-size: 100%;
+  font-family: Arial;
+  border-bottom: 1px solid grey;
+}
