@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Happy Park</title>
-    <link rel="stylesheet" href="../styles/style.css">
-    
-</head>
-<body>
-
+    <link rel="stylesheet" href="../styles/home.css" />
+  </head>
+  <body>
     <header id="header">
-        <div id="navbar">
-        <button href="home" id="home">Home</button>
-        <button href="" id="tickets">Compre Ingressos</button>
-        <button href="" id="info">Informações</button>
-        <button href="" id="about">Sobre</button>
-        <button href="login" id="login">Fazer login</button>
-        </div>
-        
+      <div id="navbar">
+        <button href="#" id="home">Home</button>
+        <button id="tickets">Compre Ingressos</button>
+        <button id="info">Informações</button>
+        <button id="about">Sobre</button>
+        <button id="login">
+          <a href="../pages/login.html"> Fazer Login </a>
+        </button>
+      </div>
     </header>
 
     <div id="sub-navbar">
-    <img src="https://images6.alphacoders.com/372/372198.jpg" alt="Foto fundo">
-    <h1 id="welcome">Bem vindo ao Happy Park!</h1>
+      <img
+        src="https://images6.alphacoders.com/372/372198.jpg"
+        alt="Foto fundo"
+      />
+      <h1 id="welcome">Bem vindo ao Happy Park!</h1>
     </div>
     <h1 id="pg"></h1>
 
     <div id="tables"></div>
 
     <div id="contents"></div>
-    
 
-    <script  src="/postgres.js"></script>
-    <script  src="../src/renderer.js"></script>
-</body>
+    <script src="../src/home.js"></script>
+  </body>
 </html>
