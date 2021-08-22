@@ -38,7 +38,7 @@ bd.query(ufs, (err, res) => {
     while (citiesBox.firstChild) {
       citiesBox.removeChild(citiesBox.lastChild);
     }
-    for (let i = 0; i <= arr.length; i++) {
+    for (let i = 1; i <= arr.length; i++) {
       if (arr[i] === event.target.value) {
         query = "select * from cidades where cidades.id_estado = " + i;
         bd.query(query, (err, res) => {
