@@ -2,34 +2,50 @@ body, html{
    height: 100%;
    width: 100%;
 }
- 
+
 body {
    margin: 0;
    background-color: white;
    font-family: 'Roboto', sans-serif;
-}
+  background:
+     /* top, transparent black, faked with gradient */ 
+     linear-gradient(
+       rgba(0, 0, 0, 0.2), 
+       rgba(0, 0, 0, 0.3)
+     ),
+     /* bottom, image */
+     url(../assets/background_main.jpg);
+   background-size: cover;
+ }
 
 #menu {
-    /* background-color: teal; */
-    height: fit-content;
-    width: 8vw;
-    font-size: 80%;
-    border-right: 2px solid #e6e6e6;
+   text-align: center;
+   height: 100%;
+   padding: 0%;
+   margin: 0%;
+   background-color: white;
+   width: 8vw;
+   font-size: 80%;
 }
 
 #menu ul{
-   padding: 1vw;
+   margin: 0%;
+   padding: 2vw 0vw 2vw 0vw;
 }
 
 #menu li{
    list-style: none;
-   padding: 0 0 2vw 0;
+   padding: 3vh 0 0 0;
    text-decoration: none;
-   /* background-color: tomato; */
 }
 
 #menu li a{
    text-decoration: none;
+}
+
+#menu li p{
+   text-decoration: none;
+   margin: 0;
 }
 
 #menu li a img{
