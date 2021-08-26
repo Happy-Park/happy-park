@@ -1,79 +1,53 @@
-* {
-   padding:0;
-   margin:0;
-}
-
-button{
-   cursor: pointer;
-}
-
-#welcome{
-   text-align: center;
-   color:springgreen;
-   width: 100%;
-   height: 15%;
-}
-
-header{
-   background-image: url(/assets/background_main.jpg);
-   position: absolute;
-}
-
-#navbar{
-   z-index: 1;
-   position: fixed;
-   text-align: center;
-   width: 100%;
-   height: 30px;
-   background-color: transparent;
-   top: 0;
-  /* background-color: rgb(250, 230, 206); */
-}
-
-#sub-navbar{
-   top: 0;
-   background-size: contain;
-   background-repeat: no-repeat;
-   background-position: center;
-}
-#navbar #login{
-   position: relative;
-   left: 5%;
-}
-
-#sub-navbar h1{
-   position: absolute;
-   top: 30px;
-}
-
-#navbar button{
-   width: 13%;
+body, html{
    height: 100%;
-   border: 1px solid black;
-   background-color: transparent;
-   font-size: 15px;
+   width: 100%;
 }
 
-#navbar button:hover{
-   background-color: rgb(255, 0, 255);
+body {
+   margin: 0;
+   background-color: white;
+   font-family: 'Roboto', sans-serif;
+  background:
+     /* top, transparent black, faked with gradient */ 
+     linear-gradient(
+       rgba(0, 0, 0, 0.2), 
+       rgba(0, 0, 0, 0.3)
+     ),
+     /* bottom, image */
+     url(../assets/background_main.jpg);
+   background-size: cover;
+ }
+
+#menu {
+   text-align: center;
+   height: 100%;
+   padding: 0%;
+   margin: 0%;
+   background-color: white;
+   width: 8vw;
+   font-size: 80%;
 }
 
-#home{
-   margin: 0 40px 0 40px;
+#menu ul{
+   margin: 0%;
+   padding: 2vw 0vw 2vw 0vw;
 }
 
-#tickets{
-   margin: 0 40px 0 40px;
-}
-
-#info{
-   margin: 0 40px 0 40px;
-}
-#about{
-   margin: 0 40px 0 40px;
-}
-
-a{
+#menu li{
+   list-style: none;
+   padding: 3vh 0 0 0;
    text-decoration: none;
-   color: black;
+}
+
+#menu li a{
+   text-decoration: none;
+}
+
+#menu li p{
+   text-decoration: none;
+   margin: 0;
+}
+
+#menu li a img{
+   width: 4vw;
 }
