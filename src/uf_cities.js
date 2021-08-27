@@ -25,20 +25,32 @@ bd.query(ufs, (err, res) => {
   if (err) {
     console.error(err);
   }
+
+  let option = document.createElement("option");
+  option.innerText = "UF";
+  ufBox.appendChild(option);
+  option = document.createElement("option");
+  option.innerText = "Cidade";
+  citiesBox.appendChild(option);
+  citiesBox.disabled = true;
+
   let i = 1;
   for (let row of res.rows) {
-    const option = document.createElement("option");
+    option = document.createElement("option");
     option.innerText = row.uf;
     option.classList = uf.codigo;
     ufBox.appendChild(option);
     arr[i] = row.uf;
     i++;
   }
+
   ufBox.addEventListener("change", function (event) {
     while (citiesBox.firstChild) {
       citiesBox.removeChild(citiesBox.lastChild);
     }
-    for (let i = 0; i <= arr.length; i++) {
+
+    citiesBox.disabled = false;
+    for (let i = 1; i <= arr.length; i++) {  
       if (arr[i] === event.target.value) {
         query = "select * from cidades where cidades.id_estado = " + i;
         bd.query(query, (err, res) => {
@@ -47,7 +59,7 @@ bd.query(ufs, (err, res) => {
             return;
           }
           for (let city of res.rows) {
-            const option = document.createElement("option");
+            option = document.createElement("option");
             option.innerText = city.nome;
             option.classList = city.nome;
             citiesBox.appendChild(option);
