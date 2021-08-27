@@ -28,15 +28,19 @@
               <div id="register"> 
               <h2 id="register">Registrar-se</h2>
               <div id="inputs">
-                <input type="name" value="" placeholder="Nome" />
+                <input type="name" value="" placeholder="Nome" required/>
                 <input type="username" value="" placeholder="Usuário" />
-                <input type="email" value="" placeholder="Email" />
-                <input type="cpf" value="" placeholder="CPF" />
-                <input type="birthdate" value="" placeholder="Data de Nascimento" />
-                <input type="password" value="" placeholder="Senha" />
-                <select id="uf" placeholder="Estado" required></select>
-                <select id="city" placeholder="Cidade" ></select>
+                <input type="email" value="" placeholder="Email" required/>
+                <input type="cpf" value="" placeholder="CPF" required/>
+                <input type="birthdate" value="" placeholder="Data de Nascimento" required/>
+                <input type="password" value="" placeholder="Senha" required/>
                 
+                
+                <div id="select">
+                  <select id="uf" placeholder="Estado" required></select>
+                  <select id="city" placeholder="Cidade" required></select>
+                </div>
+
                 <div id="buttons">
                   <button id="login-btn">Registrar</button>
                 </div>    
