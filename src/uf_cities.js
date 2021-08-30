@@ -1,27 +1,14 @@
-const pg = require("pg");
 require("dotenv").config();
 
-const bd = new pg.Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-
-bd.connect();
-
+const client = require("../src/postgres");
+client.connect();
 const ufs = "select * from estados";
-
 const ufBox = document.getElementById("uf");
 const citiesBox = document.getElementById("city");
 var query = "";
 let arr = [];
 
-bd.query(ufs, (err, res) => {
+client.query(ufs, (err, res) => {
   if (err) {
     console.error(err);
   }
@@ -53,7 +40,7 @@ bd.query(ufs, (err, res) => {
     for (let i = 1; i <= arr.length; i++) {  
       if (arr[i] === event.target.value) {
         query = "select * from cidades where cidades.id_estado = " + i;
-        bd.query(query, (err, res) => {
+        client.query(query, (err, res) => {
           if (err) {
             console.error(err);
             return;

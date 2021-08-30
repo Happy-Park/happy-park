@@ -1,12 +1,15 @@
 const db = require("../src/postgres");
+const crypto = require("crypto");
 const Cleave = require("cleave.js");
 require("cleave.js/dist/addons/cleave-phone.br");
 require("cleave.js/src/addons/phone-type-formatter.br");
-const crypto = require("crypto");
-const button = document.getElementById("login-btn");
+const button = document.getElementById("register-btn");
 const name = document.getElementById("name");
 const email = document.getElementById("email");
-const birthdate = document.getElementById("birthdate");
+
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 var cleave = new Cleave(".input-phone", {
   phone: true,
@@ -19,20 +22,20 @@ var cpfCleave = new Cleave("#cpf", {
   numericOnly: true,
 });
 
-function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 button.addEventListener("click", function () {
   let password = document.getElementById("password").value;
+  password = crypto.createHash("sha256").update(password).digest("hex");
+  let date = Date.now();
   var cityNumber;
   let city = document.getElementById("city");
-  password = crypto.createHash("sha256").update(password).digest("hex");
   city = capitalize(city.value);
   let phone = document.getElementById("phone");
   let cpf = document.getElementById("cpf");
   phone = phone.value.replaceAll(" ", "");
   cpf = cpf.value.replaceAll(".", "").replaceAll("-", "");
+  let admin = document.getElementById("admin");
+  admin = admin.checked;
+
   db.query(
     `select cidades.id from cidades where cidades.nome='${city}'`,
     (err, res) => {
@@ -40,7 +43,8 @@ button.addEventListener("click", function () {
         console.log(err);
       }
       cityNumber = res.rows[0].id;
-      const query = `insert into usuario values(default,${cpf.value},'${name.value}','${phone.value}','${email.value}','${password}','${birthdate.value}',${cityNumber})`;
+      //fazer campo data de admissao
+      const query = `insert into funcionario values(default,${cpf},'${name.value}','${admin}','${email.value}','${birthdate.value}','${password}',${cityNumber},'${phone}')`;
       console.log(query);
       db.query(query, (err, res) => {
         if (err) {
