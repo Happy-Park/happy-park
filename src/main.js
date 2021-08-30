@@ -15,7 +15,7 @@ async function createWindow() {
       enableRemoteModule: true,
     },
   });
-  window.loadFile(path.join(__dirname, "../pages/register_worker.html"));
+  window.loadFile(path.join(__dirname, "../pages/login.html"));
 }
 
 app.on("ready", createWindow);
