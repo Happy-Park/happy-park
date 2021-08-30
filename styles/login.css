@@ -98,7 +98,8 @@ body {
   border-bottom: 1px solid grey;
   margin-bottom: 10px;
   margin-top: 5%;
-  padding: 2% 20vw 1% 0; 
+  padding: 2% 1% 1% 0;
+  width: 40vw; 
   font-size: 100%;
 }
 
