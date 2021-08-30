@@ -1,4 +1,3 @@
-
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
@@ -8,6 +7,8 @@ async function createWindow() {
   window = new BrowserWindow({
     width: 1200,
     height: 700,
+    minHeight: 700,
+    minWidth: 1200,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -18,3 +19,4 @@ async function createWindow() {
 }
 
 app.on("ready", createWindow);
+

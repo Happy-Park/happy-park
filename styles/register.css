@@ -8,12 +8,10 @@ body {
   background-color: white;
   font-family: 'Roboto', sans-serif;
  background:
-    /* top, transparent black, faked with gradient */ 
     linear-gradient(
       rgba(0, 0, 0, 0.2), 
       rgba(0, 0, 0, 0.3)
     ),
-    /* bottom, image */
     url(../assets/background_main.jpg);
   background-size: cover;
 }
@@ -62,6 +60,7 @@ body {
 	font-weight: bold;
 	padding: 12px 16px;
 	text-decoration: none; 
+  backdrop-filter: blur(0.5px);
 }
 
 #half2 {
@@ -107,7 +106,28 @@ body {
 }
 
 select{
-  font-size: 100%;
   font-family: Arial;
+  border-bottom: 1px solid grey; 
+  display: inline-block;
+  border-width: 0 0 0 0;
   border-bottom: 1px solid grey;
+  margin-bottom: 10px;
+  margin-top: 2%;
+  padding: 2% 0 1% 0; 
+  font-size: 100%;
+}
+
+#uf {
+  width: max-content;
+}
+
+#select {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+#city {
+  width: 85%;
 }
