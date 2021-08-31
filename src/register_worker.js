@@ -6,6 +6,11 @@ require("cleave.js/src/addons/phone-type-formatter.br");
 const button = document.getElementById("register-btn");
 const name = document.getElementById("name");
 const email = document.getElementById("email");
+const notyf = new Notyf({
+  position: {
+    x: "right",
+    y: "top",
+  }});
 
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);

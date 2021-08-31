@@ -7,6 +7,11 @@ const button = document.getElementById("login-btn");
 const name = document.getElementById("name");
 const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
+const notyf = new Notyf({
+  position: {
+    x: "right",
+    y: "top",
+  }});
 
 var cleave = new Cleave(".input-phone", {
   phone: true,
