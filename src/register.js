@@ -7,6 +7,11 @@ const button = document.getElementById("login-btn");
 const name = document.getElementById("name");
 const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
+const notyf = new Notyf({
+  position: {
+    x: "right",
+    y: "top",
+  }});
 
 var cleave = new Cleave(".input-phone", {
   phone: true,
@@ -41,12 +46,13 @@ button.addEventListener("click", function () {
       }
       cityNumber = res.rows[0].id;
       const query = `insert into usuario values(default,${cpf.value},'${name.value}','${phone.value}','${email.value}','${password}','${birthdate.value}',${cityNumber})`;
-      console.log(query);
       db.query(query, (err, res) => {
         if (err) {
-          console.log(err);
+          notyf.error("Não foi possível realizar seu cadastro. Verifique!");
+        }else{
+          notyf.success("Cadastro realizado com sucesso!");
+          window.location.href = "../pages/login.html";
         }
-        console.log(res);
       });
     }
   );
