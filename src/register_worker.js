@@ -49,11 +49,13 @@ button.addEventListener("click", function () {
       }
       cityNumber = res.rows[0].id;
       //fazer campo data de admissao
-      const query = `insert into funcionario values(default,${cpf},'${name.value}','${admin}','${email.value}','${birthdate.value}','${password}',${cityNumber},'${phone}')`;
-      console.log(query);
+      const query = `insert into usuario values(default,${cpf.value},'${name.value}','${phone.value}','${email.value}','${password}','${birthdate.value}',${cityNumber},${admin},'true')`;
       db.query(query, (err, res) => {
         if (err) {
+          notyf.error("Não foi possível realizar seu cadastro. Verifique!");
           console.log(err);
+        } else {
+          notyf.success("Cadastro realizado com sucesso!");
         }
         console.log(res);
       });
