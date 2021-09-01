@@ -37,7 +37,6 @@ button.addEventListener("click", function () {
   let phone = document.getElementById("phone");
   let cpf = document.getElementById("cpf");
   phone = phone.value.replaceAll(" ", "");
-  cpf = cpf.value.replaceAll(".", "").replaceAll("-", "");
   let admin = document.getElementById("admin");
   admin = admin.checked;
 
@@ -49,7 +48,8 @@ button.addEventListener("click", function () {
       }
       cityNumber = res.rows[0].id;
       //fazer campo data de admissao
-      const query = `insert into usuario values(default,${cpf.value},'${name.value}','${phone.value}','${email.value}','${password}','${birthdate.value}',${cityNumber},${admin},'true')`;
+      const query = `insert into usuario values(default,${cpf.value.replaceAll(".", "").replaceAll("-", "")},'${name.value}','${phone.value}','${email.value}','${password}','${birthdate.value}',${cityNumber},${admin},'true')`;
+      console.log(query);
       db.query(query, (err, res) => {
         if (err) {
           notyf.error("Não foi possível realizar seu cadastro. Verifique!");
