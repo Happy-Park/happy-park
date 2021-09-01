@@ -37,7 +37,6 @@ button.addEventListener("click", function () {
   let phone = document.getElementById("phone");
   let cpf = document.getElementById("cpf");
   phone = phone.value.replaceAll(" ", "");
-  cpf = cpf.value.replaceAll(".", "").replaceAll("-", "");
   db.query(
     `select cidades.id from cidades where cidades.nome='${city}'`,
     (err, res) => {
@@ -45,7 +44,8 @@ button.addEventListener("click", function () {
         console.log(err);
       }
       cityNumber = res.rows[0].id;
-      const query = `insert into usuario values(default,${cpf.value},'${name.value}','${phone.value}','${email.value}','${password}','${birthdate.value}',${cityNumber})`;
+      const query = `insert into usuario values(default,${cpf.value.replaceAll(".", "").replaceAll("-", "")},'${name.value}','${phone.value}','${email.value}','${password}','${birthdate.value}',${cityNumber})`;
+      console.log(query);
       db.query(query, (err, res) => {
         if (err) {
           notyf.error("Não foi possível realizar seu cadastro. Verifique!");
