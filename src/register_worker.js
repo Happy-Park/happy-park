@@ -47,7 +47,6 @@ button.addEventListener("click", function () {
         console.log(err);
       }
       cityNumber = res.rows[0].id;
-      //fazer campo data de admissao
       const query = `insert into usuario values(default,${cpf.value.replaceAll(".", "").replaceAll("-", "")},'${name.value}','${phone.value}','${email.value}','${password}','${birthdate.value}',${cityNumber},${admin},'true')`;
       console.log(query);
       db.query(query, (err, res) => {
@@ -56,6 +55,7 @@ button.addEventListener("click", function () {
           console.log(err);
         } else {
           notyf.success("Cadastro realizado com sucesso!");
+          window.location.href = "../pages/home.html";
         }
         console.log(res);
       });
