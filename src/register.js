@@ -45,7 +45,7 @@ button.addEventListener("click", function () {
         console.log(err);
       }
       cityNumber = res.rows[0].id;
-      const query = `insert into usuario values(default,${cpf.value},'${name.value}','${phone.value}','${email.value}','${password}','${birthdate.value}',${cityNumber})`;
+      const query = `insert into usuario values(default,${cpf},'${name.value}','${phone}','${email.value}','${password}','${birthdate.value}',${cityNumber}, ${false}, ${false})`;
       db.query(query, (err, res) => {
         if (err) {
           notyf.error("Não foi possível realizar seu cadastro. Verifique!");
