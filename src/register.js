@@ -44,7 +44,7 @@ button.addEventListener("click", function () {
         console.log(err);
       }
       cityNumber = res.rows[0].id;
-      const query = `insert into usuario values(default,${cpf.value.replaceAll(".", "").replaceAll("-", "")},'${name.value}','${phone}','${email.value}','${password}','${birthdate.value}',${cityNumber})`;
+      const query = `insert into usuario values(default,${cpf.value.replaceAll(".", "").replaceAll("-", "")},'${name.value}','${phone}','${email.value}','${password}','${birthdate.value}',${cityNumber},${false},${false})`;
       console.log(query);
       db.query(query, (err, res) => {
         if (err) {
