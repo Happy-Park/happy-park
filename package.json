@@ -1,15 +1,16 @@
 {
-  "name": "my-electron-app",
+  "name": "happy-park",
   "version": "1.0.0",
-  "description": "Hello World!",
+  "description": "Management system for amusement parks, with support for conventional users to buy and schedule their trip to the park, as well as a robust system for the administrator to manage the stores, attractions, employees and others",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
     "commit": "git-cz",
+    "build": "yarn electron-packager ./ HappyPark --platform=win32 --arch=x64 --overwrite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Francisco",
-  "license": "ISC",
+  "license": "MIT",
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
@@ -22,6 +23,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^10.0.0",
     "electron": "^13.1.7",
+    "electron-packager": "^15.3.0",
     "electron-rebuild": "^3.1.1",
     "husky": "^7.0.1",
     "pg": "^8.7.1"

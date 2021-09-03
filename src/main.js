@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
+
 let window;
 
 async function createWindow() {
@@ -9,6 +10,8 @@ async function createWindow() {
     height: 700,
     minHeight: 700,
     minWidth: 1200,
+    title: "Happy Park",
+    icon: "assets/img/atracoes.png",
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

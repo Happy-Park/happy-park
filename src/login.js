@@ -13,7 +13,7 @@ const user = document.getElementById("username");
 
 button.addEventListener("click", function () {
   let password = document.getElementById("password").value;
-  const query = `select usuario.email, usuario.senha, usuario.funcionario from usuario where usuario.email='${user.value}'`;
+  const query = `select email, senha, funcionario from usuario where email='${user.value}'`;
   db.query(query, (err, res) => {
     if (err) {
       console.error(err);
@@ -28,7 +28,7 @@ button.addEventListener("click", function () {
           if (res.rows[0].funcionario === true) {
             window.location.href = "../pages/home.html";
           } else {
-            window.location.href = "../pages/home_user.html";
+            window.location.href = "../pages/home.html";
           }
         } else {
           notyf.error("Senha incorreta!");

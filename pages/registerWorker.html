@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Happy Park</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <link rel="stylesheet" href="../styles/registerWorker.css" />
+    <title>Cadastrar um Funcionário</title>
+
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="menu">
+      <ul>
+        <li><a href="#"><img src="../assets/img/product.png" alt="Produto" title="Produto"><p>Produtos</p></a></li>
+        <li><a href="#"><img src="../assets/img/pencil.png"  alt="Relatório" title="Relatório"><p>Relatórios</p></a></li>
+        <li><a href="#"><img src="../assets/img/client.png" alt="Cliente" title="Cliente"><p>Clientes</p></a></li>
+        <li><a href="../pages/registerWorker.html"><img src="../assets/img/workers.png" alt="Funcionário" title="Funcionário"><p>Funcionários</p></a></li>
+        <li><a href="#"><img src="../assets/img/shop.png" alt="Loja" title="Loja"><p>Lojas</p></a></li>
+        <li><a href="#"><img src="../assets/img/atracoes.png" alt="Atração" title="Atração"><p>Atrações</p></a></li>
+    </div> 
+    <div id="center">
+      <div id="principal">
+        <h2>Cadastro de Funcionário</h2>
+        <button id="cadastrarCliente"> Cadastrar Funcionário</button>
+        <table id="tableClient" class="records">
+          <thead>
+              <tr>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                  <th>Ação</th>
+              </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="modal" id="modal">
+      <div class="modal-content">
+          <header class="modal-header">
+              <h2>Novo Cliente</h2>
+              <span class="modal-close" id="modalClose">&#10006;</span>
+          </header>
+          <form id="form" class="modal-form">
+              <input type="text" id="name" data-index="new" class="modal-field" placeholder="Nome do Cliente"
+                  required>
+              <input type="email" id="email" class="modal-field" placeholder="e-mail do Cliente" required>
+              <input class="modal-field" id="phone" type="text" placeholder="Telefone"/>
+              <input class="modal-field" id="cpf" type="text" placeholder="CPF" required/>
+              <input class="modal-field" id="birthdate" type="date" placeholder="Data de Nascimento" required/>
+              <input class="modal-field" id="password" type="password" placeholder="Senha" required />               
+              <div id="selection-div">
+                <p>Admin: </p>
+                <input id="admin" type="checkbox"/>
+                </div>
+              <div id="select">
+                <select id="uf" placeholder="Estado" required></select>
+                <select id="city" placeholder="Cidade" required></select>
+              </div>             
+          </form>
+          <footer class="modal-footer">
+              <button id="salvar" class="button green">Salvar</button>
+              <button id="cancelar" class="button blue">Cancelar</button>
+          </footer>
+      </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script src="../node_modules/cleave.js/dist/cleave.min.js"></script>
+    <script src="../node_modules/cleave.js/dist/addons/cleave-phone.br.js"></script>
+    <script src="../src/uf_cities.js"></script>
+    <script src="../src/register_worker.js"></script>  
+  </body>
+</html>
