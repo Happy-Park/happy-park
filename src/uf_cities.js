@@ -12,7 +12,6 @@ client.query(ufs, (err, res) => {
   if (err) {
     console.error(err);
   }
-
   let option = document.createElement("option");
   option.innerText = "UF";
   ufBox.appendChild(option);

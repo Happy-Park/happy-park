@@ -48,7 +48,7 @@ button.addEventListener("click", function () {
       console.log(query);
       db.query(query, (err, res) => {
         if (err) {
-          notyf.error("Não foi possível realizar seu cadastro. Verifique!");
+          notyf.error("Não foi possível realizar seu cadastro. Verifique os dados!");
         }else{
           notyf.success("Cadastro realizado com sucesso!");
           window.location.href = "../pages/login.html";
