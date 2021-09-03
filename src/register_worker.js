@@ -170,7 +170,7 @@ const fillFields = (client) => {
   document.getElementById('name').value = client.nome
   document.getElementById('email').value = client.email
   document.getElementById('phone').value = client.telefone
-  document.getElementById('uf').hidden = true
+  document.getElementById('uf').disabled = true
   //document.getElementById('uf').value = rows[0].uf
   document.getElementById('cpf').value = client.cpf
   document.getElementById('birthdate').value = client.nascimento
@@ -178,7 +178,7 @@ const fillFields = (client) => {
   let senha = document.getElementById('password');
   senha.value = client.senha
   senha.disabled = true;
-  document.getElementById('city').hidden = true
+  document.getElementById('city').disabled = true
   //document.getElementById('city').selected = rows[0].nome
 })}
 
@@ -231,7 +231,10 @@ const saveClient = (event) => {
       if (err) {
         console.log(err);
       } else {
-        city = res.rows[0].id;
+        console.log(res)
+        if(res.rowCount > 0){
+          city = res.rows[0].id;
+        }
       }
       client = {
         nome: document.getElementById("name").value,
