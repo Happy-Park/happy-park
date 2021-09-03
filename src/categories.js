@@ -7,10 +7,8 @@ const categBox = document.getElementById("category");
 client.query(query, (err, res) => {
   if (err) {
     console.error(err);
-    console.log('oi')
   }
   else{
-    console.log('oi')
     let option = document.createElement("option");
   option.innerText = "Categoria";
   categBox.appendChild(option);
