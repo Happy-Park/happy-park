@@ -28,7 +28,7 @@ button.addEventListener("click", function () {
           if (res.rows[0].funcionario === true) {
             window.location.href = "../pages/home.html";
           } else {
-            window.location.href = "../pages/home.html";
+            window.location.href = "../pages/home_user.html";
           }
         } else {
           notyf.error("Senha incorreta!");
