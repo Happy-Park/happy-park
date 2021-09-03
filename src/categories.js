@@ -7,8 +7,11 @@ const categBox = document.getElementById("category");
 client.query(query, (err, res) => {
   if (err) {
     console.error(err);
+    console.log('oi')
   }
-  let option = document.createElement("option");
+  else{
+    console.log('oi')
+    let option = document.createElement("option");
   option.innerText = "Categoria";
   categBox.appendChild(option);
   for (let row of res.rows) {
@@ -16,5 +19,6 @@ client.query(query, (err, res) => {
     option.innerText = row.descricao;
     option.classList = row.descricao;
     categBox.appendChild(option);
+  }
   }
 });

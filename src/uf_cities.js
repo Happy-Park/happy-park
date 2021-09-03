@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const client = require("../src/postgres");
 client.connect();
 const ufs = "select * from estados";
@@ -24,17 +23,15 @@ client.query(ufs, (err, res) => {
   for (let row of res.rows) {
     option = document.createElement("option");
     option.innerText = row.uf;
-    option.classList = uf.codigo;
+    option.classList = row.codigo;
     ufBox.appendChild(option);
     arr[i] = row.uf;
     i++;
   }
-
-  ufBox.addEventListener("change", function (event) {
+  ufBox.addEventListener("change", function (event){
     while (citiesBox.firstChild) {
       citiesBox.removeChild(citiesBox.lastChild);
     }
-
     citiesBox.disabled = false;
     for (let i = 1; i <= arr.length; i++) {  
       if (arr[i] === event.target.value) {
@@ -53,5 +50,4 @@ client.query(ufs, (err, res) => {
         });
       }
     }
-  });
-});
+  })});
