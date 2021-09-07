@@ -38,17 +38,21 @@ axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados`)
         if (arr[i] === event.target.value) {
           axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${citiesBox.innerText}/municipios`)
           .then(function (response) {
-            for (let city of response.data.length) {
-              option = document.createElement("option");
-              option.innerText = city.nome;
-              option.classList = city.nome;
-              citiesBox.appendChild(option);
-            }
+            let cities = response;  
           }); 
+          for (let city of cities.data.length) {
+            option = document.createElement("option");
+            option.innerText = city.nome;
+            option.classList = city.nome;
+            citiesBox.appendChild(option);
+          }
         }
       }
-    })
+    })   
   });
+    
+
+  
   
   
 
