@@ -1,11 +1,13 @@
 const db = require("../src/postgres");
 const crypto = require("crypto");
 const Cleave = require("cleave.js");
+let Tabulator = require('tabulator-tables')
 require("cleave.js/dist/addons/cleave-phone.br");
 require("cleave.js/src/addons/phone-type-formatter.br");
 const button = document.getElementById("register-btn");
 const name = document.getElementById("name");
 const email = document.getElementById("email");
+let table = new Tabulator('#worker-table',{})
 const notyf = new Notyf({
   duration: 2000,
   position: {
