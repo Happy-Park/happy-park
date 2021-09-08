@@ -7,7 +7,16 @@ require("cleave.js/src/addons/phone-type-formatter.br");
 const button = document.getElementById("register-btn");
 const name = document.getElementById("name");
 const email = document.getElementById("email");
-let table = new Tabulator('#worker-table',{})
+var table = new Tabulator('#tableClient',{
+  reactiveData: true,
+  height: '100%',
+  layout:'fitData',
+  columns:[
+    {title:'Nome'},
+    {title:'Email'},
+    {title:'Telefone'}
+  ]
+})
 const notyf = new Notyf({
   duration: 2000,
   position: {
@@ -139,9 +148,18 @@ const updateTable = () => {
       notyf.error("Erro ao carregar os usuários. Verifique!");
       console.log(err);
     } else {
-      for (let i = 0; i < res.rows.length; i++) {
-        createRow(res.rows[i]);
-      } 
+      let tableData = []
+      let i = 0;
+      res.rows.forEach(element => {
+        tableData[i] = {name:element.nome, email:element.email, telefone:element.telefone}
+     i++;
+      });
+      console.log(tableData)
+ //     for (let i = 0; i < res.rows.length; i++) {
+   //     console.log(res.rows)
+      //  console.log('--')
+     //   tableData[i] = {name:res.rows.nome, email:res.rows.email, telefone:res.rows.telefone}
+      table.addData(tableData)
     }
   });
 }
@@ -308,8 +326,8 @@ document.getElementById('modalClose')
 document.getElementById('salvar')
     .addEventListener('click', saveClient);
 
-document.querySelector('#tableClient>tbody')
-    .addEventListener('click', editDelete);
+//document.querySelector('#tableClient>tbody')
+ //   .addEventListener('click', editDelete);
 
 document.getElementById('cancelar')
     .addEventListener('click', closeModal);

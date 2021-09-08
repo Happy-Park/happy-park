@@ -3189,6 +3189,11 @@
   dependencies:
     "has-flag" "^4.0.0"
 
+"tabulator-tables@^4.9.3":
+  "integrity" "sha512-iwwQqAEGGxlgrBpcmJJvMJrfjGLcCXOB3AOb/DGkXqBy1YKoYA36hIl7qXGp6Jo8dSkzFAlDT6pKLZgyhs9OnQ=="
+  "resolved" "https://registry.npmjs.org/tabulator-tables/-/tabulator-tables-4.9.3.tgz"
+  "version" "4.9.3"
+
 "tar@^6.0.2", "tar@^6.0.5", "tar@^6.1.0":
   "integrity" "sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA=="
   "resolved" "https://registry.npmjs.org/tar/-/tar-6.1.11.tgz"
