@@ -20,10 +20,11 @@ axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados`)
     citiesBox.disabled = true;
 
     let i = 1;
-    for (let row of response.data.length) {
+    // console.log(response.data[0].sigla);
+    for (let row of response.data) {
       option = document.createElement("option");
-      option.innerText = row.uf;
-      option.classList = row.codigo;
+      option.innerText = row.sigla;
+      option.classList = row.id;
       ufBox.appendChild(option);
       arr[i] = row.uf;
       i++;
@@ -34,27 +35,17 @@ axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados`)
         citiesBox.removeChild(citiesBox.lastChild);
       }
       citiesBox.disabled = false;
-      for (let i = 1; i <= arr.length; i++) {  
-        if (arr[i] === event.target.value) {
-          axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${citiesBox.innerText}/municipios`)
-          .then(function (response) {
-            let cities = response;  
-          }); 
-          for (let city of cities.data.length) {
-            option = document.createElement("option");
-            option.innerText = city.nome;
-            option.classList = city.nome;
-            citiesBox.appendChild(option);
-          }
-        }
-      }
+      console.log(ufBox.children[ufBox.selectedIndex].innerText);
+      axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufBox.children[ufBox.selectedIndex].innerText}/municipios`)
+      .then(function (response) {
+        let cities = response; 
+        for (let city of response.data) {
+          option = document.createElement("option");
+          option.innerText = city.nome;
+          option.classList = city.id;
+          citiesBox.appendChild(option);
+        } 
+      }); 
     })   
   });
-    
-
-  
-  
-  
-
-
-  
+     
