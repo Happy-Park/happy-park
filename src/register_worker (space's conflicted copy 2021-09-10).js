@@ -6,12 +6,9 @@ require("cleave.js/src/addons/phone-type-formatter.br");
 const button = document.getElementById("register-btn");
 const name = document.getElementById("name");
 const email = document.getElementById("email");
-let currentClientSelected = [2];
 var table = new Tabulator("#tableClient", {
-  rowClick: function (e, row) {
-    currentClientSelected[0] = row.getData().Email;
-    currentClientSelected[1] = row.getData().Nome;
-    editClientEmail(e, currentClientSelected[0]);
+  rowClick: function(e,row){
+    editClientEmail(row.getData().Email);
   },
   selectable: 1,
   layout: "fitColumns",
@@ -49,32 +46,21 @@ var cpfCleave = new Cleave("#cpf", {
 });
 
 // CRUD - create read update delete
-function deleteClient(user) {
-  if (user != null && user != undefined) {
-    const response = confirm(
-      `Deseja realmente excluir o cliente '${user[1]}'?`
-    );
-    if (response) {
-      let query = `delete from USUARIO where email='${user[0]}'`;
-      db.query(query, (err, res) => {
-        if (err) {
-          notyf.error("Erro ao excluir o usuário. Verifique!");
-          console.log(err);
-        } else {
-          notyf.success("Usuário excluído com sucesso!");
-          updateTable();
-          closeModal();
-        }
-      });
+const deleteClient = (index) => {
+  let query = `delete from USUARIO where ID=${index}`;
+  db.query(query, (err, res) => {
+    if (err) {
+      notyf.error("Erro ao excluir o usuário. Verifique!");
+      console.log(err);
+    } else {
+      notyf.success("Usuário excluído com sucesso!");
+      updateTable();
     }
-  }
-}
-
-const toDeleteClient = () => {
-  deleteClient(currentClientSelected);
+  });
 };
 
 const readClient = (index) => {
+  //debugger;
   var x = "";
   const query = `select * from usuario where id=${index}`;
   db.query(query, (err, res) => {
@@ -87,8 +73,9 @@ const readClient = (index) => {
 };
 
 const readClientEmail = (email) => {
+  //debugger;
   var x = "";
-  const query = `select * from usuario where email='${email}'`;
+  const query = `select * from usuario where email='${index}'`;
   db.query(query, (err, res) => {
     if (err) {
       console.log(err);
@@ -138,7 +125,6 @@ const updateTable = () => {
       console.log(err);
     } else {
       let i = 0;
-
       res.rows.forEach((element) => {
         tableData[i] = {
           Nome: element.nome,
@@ -147,6 +133,8 @@ const updateTable = () => {
         };
         i++;
       });
+      //     for (let i = 0; i < res.rows.length; i++) {
+      //   tableData[i] = {name:res.rows.nome, email:res.rows.email, telefone:res.rows.telefone}
       table.addData(tableData);
     }
   });
@@ -202,33 +190,35 @@ const editClient = (index) => {
   });
 };
 
-const editClientEmail = (e, email) => {
+const editClientEmail = (email) => {
   db.query(`select * from usuario where email ='${email}'`, (err, res) => {
     if (err) {
       console.log(err);
     } else {
       let client = res.rows[0];
+      console.log(client)
       let data = new Date(client.nascimento);
       let date = data.toISOString().split("T")[0];
       client.nascimento = date;
-      fillFields(e, client);
-      document.getElementById("deletar").disabled = false;
+      fillFields(client);
       openModal();
     }
   });
 };
 
-const editDelete = (event, email) => {
+const editDelete = (event) => {
+  console.log(event)
+  //debugger;
   if (event.type == "click") {
-    let client = readClientEmail(email);
-    const response = confirm(
-      `Deseja realmente excluir o cliente ${client.nome}?`
-    );
-    if (response) {
-      deleteClient(index);
-      updateTable();
+      let client = readClient(index);
+      const response = confirm(
+        `Deseja realmente excluir o cliente ${client.nome}?`
+      );
+      if (response) {
+        deleteClient(index);
+        updateTable();
+      }
     }
-  }
 };
 
 const clearFields = () => {
@@ -268,7 +258,7 @@ const saveClient = (event) => {
         cidade: city,
         funcionario: true,
       };
-
+      console.log(client);
       if (novo == true) {
         createClient(client);
         updateTable();
@@ -302,13 +292,11 @@ const cadastrarCliente = () => {
   novo = true;
   document.getElementById("modal").classList.add("active");
   document.getElementById("password").disabled = false;
-  document.getElementById("uf").disabled = false;
 };
 
 const closeModal = () => {
   clearFields();
   document.getElementById("modal").classList.remove("active");
-  document.getElementById("deletar").disabled = true;
   novo = false;
 };
 
@@ -322,6 +310,6 @@ document.getElementById("modalClose").addEventListener("click", closeModal);
 
 document.getElementById("salvar").addEventListener("click", saveClient);
 
-document.getElementById("deletar").addEventListener("click", toDeleteClient);
+document.getElementById('deletar').addEventListener('click', editDelete);
 
 document.getElementById("cancelar").addEventListener("click", closeModal);
