@@ -102,12 +102,15 @@ body {
 }
 
 #tableClient {
+   height: 100%;
    width: 100%;
    margin-top: 3%;
    /* display: flex; */
    justify-content: center;
 }
 
+
+/*
 .records{
    width: 85%;
    user-select: none;
@@ -135,7 +138,7 @@ body {
 .records tr:hover{
    background-color: #eaeaea;
 }
-
+*/
 .modal{
    position: fixed;
    top:0;
