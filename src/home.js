@@ -1,7 +1,8 @@
 let cepBtn = document.getElementById("get-cep");
 let wheater = document.getElementById("weather");
 let forecast = document.getElementById("forecast");
-let apiKey = "baddcdc6";
+require("dotenv/config");
+let apiKey = process.env.API_KEY_FORECAST;
 //fazer com campos e listener em um botao?
 let cityName;
 let url;
