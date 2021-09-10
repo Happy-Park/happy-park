@@ -2,7 +2,8 @@ require("dotenv/config");
 let cepBtn = document.getElementById("get-cep");
 let wheater = document.getElementById("weather");
 let forecast = document.getElementById("forecast");
-let apiKey = process.env.HG_BRASIL_KEY;
+let apiKey = process.env.API_KEY_FORECAST;
+let cityName;
 let url;
 let request = new XMLHttpRequest();
 
