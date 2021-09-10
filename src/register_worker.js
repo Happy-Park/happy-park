@@ -3,12 +3,11 @@ const crypto = require("crypto");
 const Cleave = require("cleave.js");
 require("cleave.js/dist/addons/cleave-phone.br");
 require("cleave.js/src/addons/phone-type-formatter.br");
-const button = document.getElementById("register-btn");
-const name = document.getElementById("name");
 const email = document.getElementById("email");
 let currentClientSelected = [2];
 var table = new Tabulator("#tableClient", {
   rowClick: function (e, row) {
+    //saves the client's name and email for the selected row
     currentClientSelected[0] = row.getData().Email;
     currentClientSelected[1] = row.getData().Nome;
     editClientEmail(e, currentClientSelected[0]);
@@ -32,10 +31,6 @@ const notyf = new Notyf({
   },
 });
 var novo = false;
-
-function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 var cleave = new Cleave("#phone", {
   phone: true,
@@ -123,14 +118,8 @@ const createClient = (client) => {
   });
 };
 
-const clearTable = () => {
-  const rows = document.querySelectorAll("#tableClient>tbody tr");
-  rows.forEach((row) => row.parentNode.removeChild(row));
-};
-
 const updateTable = () => {
   table.clearData();
-  //debugger
   const query = "select * from usuario where funcionario = true";
   db.query(query, (err, res) => {
     if (err) {
@@ -138,7 +127,7 @@ const updateTable = () => {
       console.log(err);
     } else {
       let i = 0;
-
+      //For each client in the array, adds its data to it
       res.rows.forEach((element) => {
         tableData[i] = {
           Nome: element.nome,
@@ -187,21 +176,6 @@ const fillFields = (client) => {
   );
 };
 
-const editClient = (index) => {
-  db.query(`select * from usuario where id=${index}`, (err, res) => {
-    if (err) {
-      console.log(err);
-    } else {
-      let client = res.rows[0];
-      let data = new Date(client.nascimento);
-      let date = data.toISOString().split("T")[0];
-      client.nascimento = date;
-      fillFields(client);
-      openModal();
-    }
-  });
-};
-
 const editClientEmail = (e, email) => {
   db.query(`select * from usuario where email ='${email}'`, (err, res) => {
     if (err) {
@@ -218,27 +192,12 @@ const editClientEmail = (e, email) => {
   });
 };
 
-const editDelete = (event, email) => {
-  if (event.type == "click") {
-    let client = readClientEmail(email);
-    const response = confirm(
-      `Deseja realmente excluir o cliente ${client.nome}?`
-    );
-    if (response) {
-      deleteClient(index);
-      updateTable();
-    }
-  }
-};
-
 const clearFields = () => {
   const fields = document.querySelectorAll(".modal-field");
   fields.forEach((field) => (field.value = ""));
 };
 
-//problema de escopo de variaveis na funcao saveClient
 const saveClient = (event) => {
-  //debugger;
   let client;
   let city = document.getElementById("city").value;
   db.query(
