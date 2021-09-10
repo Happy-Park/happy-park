@@ -1,14 +1,13 @@
+require("dotenv/config");
 let cepBtn = document.getElementById("get-cep");
 let wheater = document.getElementById("weather");
 let forecast = document.getElementById("forecast");
-let apiKey = "baddcdc6";
-//fazer com campos e listener em um botao?
-let cityName;
+let apiKey = process.env.HG_BRASIL_KEY;
 let url;
 let request = new XMLHttpRequest();
 
 cepBtn.addEventListener("click", () => {
-  wheater.innerText = "Temperatura em"
+  wheater.innerText = "Temperatura em "
   forecast.innerText = "Previsão para amanhã:"
   let cep = document.getElementById("cep");
   if (cep.value != null) {
