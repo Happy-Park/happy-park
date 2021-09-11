@@ -1,4 +1,5 @@
 require("dotenv").config();
+const axios = require('axios').default;
 const client = require("../src/postgres");
 client.connect();
 const ufs = "select * from estados";
@@ -7,47 +8,44 @@ const citiesBox = document.getElementById("city");
 var query = "";
 let arr = [];
 
-client.query(ufs, (err, res) => {
-  if (err) {
-    console.error(err);
-  }
-  let option = document.createElement("option");
-  option.innerText = "UF";
-  ufBox.appendChild(option);
-  option = document.createElement("option");
-  option.innerText = "Cidade";
-  citiesBox.appendChild(option);
-  citiesBox.disabled = true;
-
-  let i = 1;
-  for (let row of res.rows) {
-    option = document.createElement("option");
-    option.innerText = row.uf;
-    option.classList = row.codigo;
+//Retorna response da API
+axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados`)
+  .then(function (response) {
+    let option = document.createElement("option");
+    option.innerText = "UF";
     ufBox.appendChild(option);
-    arr[i] = row.uf;
-    i++;
-  }
-  ufBox.addEventListener("change", function (event){
-    while (citiesBox.firstChild) {
-      citiesBox.removeChild(citiesBox.lastChild);
+    option = document.createElement("option");
+    option.innerText = "Cidade";
+    citiesBox.appendChild(option);
+    citiesBox.disabled = true;
+
+    let i = 1;
+    // console.log(response.data[0].sigla);
+    for (let row of response.data) {
+      option = document.createElement("option");
+      option.innerText = row.sigla;
+      option.classList = row.id;
+      ufBox.appendChild(option);
+      arr[i] = row.uf;
+      i++;
     }
-    citiesBox.disabled = false;
-    for (let i = 1; i <= arr.length; i++) {  
-      if (arr[i] === event.target.value) {
-        query = "select * from cidades where cidades.id_estado = " + i;
-        client.query(query, (err, res) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          for (let city of res.rows) {
-            option = document.createElement("option");
-            option.innerText = city.nome;
-            option.classList = city.nome;
-            citiesBox.appendChild(option);
-          }
-        });
+
+    ufBox.addEventListener("change", function (event){
+      while (citiesBox.firstChild) {
+        citiesBox.removeChild(citiesBox.lastChild);
       }
-    }
-  })});
+      citiesBox.disabled = false;
+      console.log(ufBox.children[ufBox.selectedIndex].innerText);
+      axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufBox.children[ufBox.selectedIndex].innerText}/municipios`)
+      .then(function (response) {
+        let cities = response; 
+        for (let city of response.data) {
+          option = document.createElement("option");
+          option.innerText = city.nome;
+          option.classList = city.id;
+          citiesBox.appendChild(option);
+        } 
+      }); 
+    })   
+  });
+     
