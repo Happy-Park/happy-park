@@ -34,7 +34,8 @@
     "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "notyf": "^3.10.0",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "tabulator-tables": "^4.9.3"
   },
   "config": {
     "commitizen": {

@@ -1,0 +1,255 @@
+-- -----------------------------------------------------
+-- Table USUARIO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS USUARIO (
+  ID INT NOT NULL,
+  CPF INT NOT NULL,
+  NOME VARCHAR(45) NOT NULL,
+  TELEFONE VARCHAR(45) NOT NULL,
+  EMAIL VARCHAR(45) NOT NULL,
+  SENHA VARCHAR(45) NOT NULL,
+  NASCIMENTO TIMESTAMP NOT NULL,
+  ADMIN CHAR NOT NULL,
+  FUNCIONARIO VARCHAR(45) NOT NULL,
+  CIDADE INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT CPF_UNIQUE UNIQUE (CPF),
+  CONSTRAINT EMAIL_UNIQUE UNIQUE (EMAIL));
+
+
+
+-- -----------------------------------------------------
+-- Table HORARIOTRABALHO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS HORARIOTRABALHO (
+  ID INT NOT NULL,
+  HORAENTRADA TIMESTAMP NOT NULL,
+  HORASAIDA TIMESTAMP NOT NULL,
+  USUARIO INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT fk_HORARIOTRABALHO_USUARIO1
+    FOREIGN KEY (USUARIO)
+    REFERENCES USUARIO (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+-- -----------------------------------------------------
+-- Table ATRACAOCATEG
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS ATRACAOCATEG (
+  ID INT NOT NULL,
+  DESCRICAO VARCHAR(45) NOT NULL,
+  SITUACAO VARCHAR(1) NOT NULL,
+  PRIMARY KEY (ID));
+
+
+
+-- -----------------------------------------------------
+-- Table ATRACAO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS ATRACAO (
+  ID INT NOT NULL,
+  DESCRICAO VARCHAR(45) NOT NULL,
+  CAPACIDADE INT NULL,
+  ATRACAOCATEG INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT fk_atracoes_categoria_atracao1
+    FOREIGN KEY (ATRACAOCATEG)
+    REFERENCES ATRACAOCATEG (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+-- -----------------------------------------------------
+-- Table TIPOPAGAMENTO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS TIPOPAGAMENTO (
+  ID INT NOT NULL,
+  NOME VARCHAR(45) NOT NULL,
+  PRIMARY KEY (ID));
+
+
+
+-- -----------------------------------------------------
+-- Table FINANCEIRO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS FINANCEIRO (
+  ID INT NOT NULL,
+  VALORTOTAL VARCHAR(45) NOT NULL,
+  VALORPAGO VARCHAR(45) NOT NULL,
+  DATA TIMESTAMP NOT NULL,
+  SITUACAO VARCHAR(1) NOT NULL,
+  TIPOPAGAMENTO INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT fk_financeiro_tipos_pagamento1
+    FOREIGN KEY (TIPOPAGAMENTO)
+    REFERENCES TIPOPAGAMENTO (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+-- -----------------------------------------------------
+-- Table INGRESSO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS INGRESSO (
+  ID INT NOT NULL,
+  VALOR FLOAT NOT NULL,
+  DESCRICAO VARCHAR(45) NOT NULL,
+  PRIMARY KEY (ID));
+
+
+
+-- -----------------------------------------------------
+-- Table VENDINGRESSO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS VENDINGRESSO (
+  ID INT NOT NULL,
+  DATA TIMESTAMP NOT NULL,
+  VALIDADE TIMESTAMP NOT NULL,
+  VALORTOTAL FLOAT NOT NULL,
+  QUANTIDADE INT NOT NULL,
+  INGRESSO INT NOT NULL,
+  USUARIO INT NOT NULL,
+  FINANCEIRO INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT fk_venda_ingresso_plano_ingresso1
+    FOREIGN KEY (INGRESSO)
+    REFERENCES INGRESSO (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_venda_ingresso_usuario1
+    FOREIGN KEY (USUARIO)
+    REFERENCES USUARIO (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_VENDINGRESSO_FINANCEIRO1
+    FOREIGN KEY (FINANCEIRO)
+    REFERENCES FINANCEIRO (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+-- -----------------------------------------------------
+-- Table PARQUE
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS PARQUE (
+  ID INT NOT NULL,
+  NOME VARCHAR(45) NOT NULL,
+  CNPJ VARCHAR(45) NOT NULL,
+  HRABERTURA TIMESTAMP NOT NULL,
+  HRFECHADO TIMESTAMP NOT NULL,
+  CIDADE INT NOT NULL,
+  PRIMARY KEY (ID));
+
+
+
+-- -----------------------------------------------------
+-- Table LOJACATEG
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS LOJACATEG (
+  ID INT NOT NULL,
+  DESCRICAO VARCHAR(45) NOT NULL,
+  SITUACAO VARCHAR(45) NOT NULL,
+  PRIMARY KEY (ID));
+
+
+
+-- -----------------------------------------------------
+-- Table LOJA
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS LOJA (
+  ID INT NOT NULL,
+  CNPJ VARCHAR(14) NOT NULL,
+  NOME VARCHAR(45) NOT NULL,
+  LOJACATEG_ID INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT CNPJ_UNIQUE UNIQUE (CNPJ),
+  CONSTRAINT fk_LOJA_LOJACATEG1
+    FOREIGN KEY (LOJACATEG_ID)
+    REFERENCES LOJACATEG (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+-- -----------------------------------------------------
+-- Table PRODUTOCATEG
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS PRODUTOCATEG (
+  ID INT NOT NULL,
+  DESCRICAO VARCHAR(45) NOT NULL,
+  PRIMARY KEY (ID));
+
+
+
+-- -----------------------------------------------------
+-- Table PRODUTO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS PRODUTO (
+  ID INT NOT NULL,
+  DESCRICAO VARCHAR(45) NOT NULL,
+  MARCA VARCHAR(45) NULL,
+  LOJA_ID INT NOT NULL,
+  PRODUTOCATEG_ID INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT DESCRICAO_UNIQUE UNIQUE (DESCRICAO),
+  CONSTRAINT fk_PRODUTO_LOJA1
+    FOREIGN KEY (LOJA_ID)
+    REFERENCES LOJA (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_PRODUTO_PRODUTOCATEG1
+    FOREIGN KEY (PRODUTOCATEG_ID)
+    REFERENCES PRODUTOCATEG (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+-- -----------------------------------------------------
+-- Table VENDA
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS VENDA (
+  ID INT NOT NULL,
+  DATA VARCHAR(45) NOT NULL,
+  USUARIO INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT fk_VENDA_USUARIO1
+    FOREIGN KEY (USUARIO)
+    REFERENCES USUARIO (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+-- -----------------------------------------------------
+-- Table VENDITEM
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS VENDITEM (
+  ID INT NOT NULL,
+  VALORUNIT FLOAT NOT NULL,
+  QUANTIDADE FLOAT NOT NULL,
+  PRODUTO INT NOT NULL,
+  USUARIO INT NOT NULL,
+  VENDA INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT fk_VENDITEM_PRODUTO1
+    FOREIGN KEY (PRODUTO)
+    REFERENCES PRODUTO (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_VENDITEM_USUARIO1
+    FOREIGN KEY (USUARIO)
+    REFERENCES USUARIO (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_VENDITEM_VENDA1
+    FOREIGN KEY (VENDA)
+    REFERENCES VENDA (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
