@@ -1,9 +1,10 @@
 const db = require("../src/postgres");
 const crypto = require("crypto");
 const Cleave = require("cleave.js");
+window.jsPDF = window.jspdf.jsPDF;
 require("cleave.js/dist/addons/cleave-phone.br");
 require("cleave.js/src/addons/phone-type-formatter.br");
-const email = document.getElementById("email");
+const downloadTable = document.getElementById("downloadTable");
 let currentClientSelected = [2];
 var table = new Tabulator("#tableClient", {
   rowClick: function (e, row) {
@@ -21,6 +22,7 @@ var table = new Tabulator("#tableClient", {
     { title: "Telefone", field: "Telefone" },
   ],
 });
+
 
 let tableData = [];
 const notyf = new Notyf({
@@ -42,6 +44,8 @@ var cpfCleave = new Cleave("#cpf", {
   blocks: [3, 3, 3, 2],
   numericOnly: true,
 });
+
+downloadTable.addEventListener('click', function() {table.download("pdf","TabelaFuncionarios.pdf")} )
 
 // CRUD - create read update delete
 function deleteClient(user) {
