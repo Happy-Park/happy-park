@@ -33,6 +33,8 @@
     "cleave.js": "^1.6.0",
     "dotenv": "^10.0.0",
     "esm": "^3.2.25",
+    "jspdf": "^2.3.1",
+    "jspdf-autotable": "^3.5.20",
     "notyf": "^3.10.0",
     "pg": "^8.7.1",
     "tabulator-tables": "^4.9.3"
