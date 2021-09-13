@@ -7,6 +7,7 @@ body {
    margin: 0;
    background-color: white;
    font-family: 'Roboto', sans-serif;
+   display: inline-flex;
   background:
      /* top, transparent black, faked with gradient */ 
      linear-gradient(
@@ -50,4 +51,28 @@ body {
 
 #menu li a img{
    width: 4vw;
+}
+
+#center {
+   text-align: center;
+   height: 100%;
+   padding: 0%;
+   margin: 0%;
+   background-color: blue;
+   width: 92vw;
+}
+
+#weather-principal {
+   /* text-align: right; */
+   font-size: 70%;
+   float: right;
+   display: inline-flex;
+   padding: 0;
+   margin: 0;
+   background-color: white;
+   width: 92vw;
+}
+
+#weather-principal h2{
+   padding-right: 2vw;
 }
