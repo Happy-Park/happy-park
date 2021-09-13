@@ -11,7 +11,8 @@ const notyf = new Notyf({
   position: {
     x: "right",
     y: "top",
-  }});
+  },
+});
 
 var cleave = new Cleave(".input-phone", {
   phone: true,
@@ -30,30 +31,27 @@ function capitalize(string) {
 
 button.addEventListener("click", function () {
   let password = document.getElementById("password").value;
-  var cityNumber;
+  let uf = document.getElementById("uf").value;
   let city = document.getElementById("city");
   password = crypto.createHash("sha256").update(password).digest("hex");
   city = capitalize(city.value);
   let phone = document.getElementById("phone");
   let cpf = document.getElementById("cpf");
   phone = phone.value.replaceAll(" ", "");
-  db.query(
-    `select cidades.id from cidades where cidades.nome='${city}'`,
-    (err, res) => {
-      if (err) {
-        console.log(err);
-      }
-      cityNumber = res.rows[0].id;
-      const query = `insert into usuario values(default,${cpf.value.replaceAll(".", "").replaceAll("-", "")},'${name.value}','${phone}','${email.value}','${password}','${birthdate.value}',${cityNumber},${false},${false})`;
-      console.log(query);
-      db.query(query, (err, res) => {
-        if (err) {
-          notyf.error("Não foi possível realizar seu cadastro. Verifique os dados!");
-        }else{
-          notyf.success("Cadastro realizado com sucesso!");
-          window.location.href = "../pages/login.html";
-        }
-      });
+  const query = `insert into usuario values(default,'${cpf.value
+    .replaceAll(".", "")
+    .replaceAll("-", "")}','${name.value}','${phone}','${
+    email.value
+  }','${password}','${birthdate.value}', ${false}, ${false},'${city}','${uf}')`;
+  console.log(query);
+  db.query(query, (err, res) => {
+    if (err) {
+      notyf.error(
+        "Não foi possível realizar seu cadastro. Verifique os dados!"
+      );
+    } else {
+      notyf.success("Cadastro realizado com sucesso!");
+      window.location.href = "../pages/login.html";
     }
-  );
+  });
 });
