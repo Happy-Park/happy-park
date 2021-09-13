@@ -40,7 +40,7 @@ This project was developed with the following technologies:
 
 ## 📘 How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Yarn][yarn] or [Node](https://nodejs.org/en/) installed on your computer. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed on your computer. From your command line:
 
 ```bash
 # Clone this repository
@@ -50,14 +50,16 @@ $ git clone https://github.com/Happy-Park/happy-park.git
 $ cd happy-park
 
 # Install dependencies
-$ yarn
-# or
 $ npm install
 
+# You can use the script located in ./assets/ScriptCreateDB.sql to create the database
 # In the project, change the variables in ./src/postgres.js to your database.
 
 # Start the application
 $ npm start
+
+# To build the Windows version
+$ npm run build
 
 ```
 
@@ -81,6 +83,5 @@ This project is under the MIT license. See the [LICENSE](https://github.com/fegr
  
 
 [nodejs]: https://nodejs.org/
-[yarn]: https://yarnpkg.com/
 [vc]: https://code.visualstudio.com/
 [py]: https://www.python.org
