@@ -1,9 +1,9 @@
 require("dotenv/config");
-let cepBtn = document.getElementById("get-cep");
 let wheater = document.getElementById("weather");
+let wheaterDescription = document.getElementById("weather-description");
+let hour = document.getElementById("hour");
 let img = document.getElementById("img-weather");
 let apiKey = process.env.API_KEY_FORECAST;
-let cityName;
 let url;
 let request = new XMLHttpRequest();
 
@@ -17,7 +17,6 @@ request.send();
 request.responseType = "json";
 request.onload = () => {
 let info = request.response;
-  console.log(info);
   let cityName = info.city;
   let uf = info.state;
   // url = `https://api.hgbrasil.com/weather?format=json-cors&fields=only_results,temp,description,time&key=${apiKey}&city_name=${info.city}`; API SÓ O BASICO
@@ -29,31 +28,50 @@ let info = request.response;
     var response = request.response.results;
 
     //Ajeita imagem conforme o clima
-    if (parseInt(response.condition_code) in [0,1,3,4,37,38,39,47]){
+    var condition = parseInt(response.condition_code)
+    if ([0,1,3,4,37,38,39,47].includes(condition)){
       img.src = "../assets/img/weather/tempestade.png";
     }
-    else if (parseInt(response.condition_code) in [9,11,12,35,40,45]){
+    else if ([9,11,12,35,40,45].includes(condition)){
       img.src = "../assets/img/weather/chuva.png";
     }
-    else if (parseInt(response.condition_code) in [2,15,21,23,24]){
+    else if ([2,15,21,23,24].includes(condition)){
       img.src = "../assets/img/weather/vento.png";
     }
-    else if (parseInt(response.condition_code) in [13,15,16,17,18,41,42,43,46]){
+    else if ([13,15,16,17,18,41,42,43,46].includes(condition)){
       img.src = "../assets/img/weather/inverno.png";
     }
-    else if (parseInt(response.condition_code) in [25,27,31,32,33,44]){
+    else if ([25,27,31,32,33,44].includes(condition)){
       img.src = "../assets/img/weather/nuvem.png";
     }
     else {
       img.src = "../assets/img/weather/nublado.png";
     }
 
-    wheater.innerText +=
-      ` ${cityName}: ` + response.temp +"°C, " +response.description +". Hora: " + response.time;
-    // forecast.innerText +=" Miníma:" + response.forecast[1].min +" °C Máxima:" + response.forecast[1].max + " °C. Descrição: " +
-    //   response.forecast[1].description;
-    console.log(response);
+    wheaterDescription.innerText = response.description;
+    wheater.innerText = ` ${cityName}: ` + response.temp +"°C, "; 
   };
 };
+
+function checkTime(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+
+function startTime() {
+today = new Date();
+h = today.getHours();
+m = today.getMinutes();
+// add a zero in front of numbers<10
+m = checkTime(m);
+hour.innerText = h + ":" + m;
+t = setTimeout(function() {
+  startTime()
+}, 500);
+}
+
+startTime();
 
 
