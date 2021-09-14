@@ -9,8 +9,11 @@ async function createWindow() {
     height: 700,
     minHeight: 700,
     minWidth: 1200,
+    backgroundColor: "#ffffff",
+    thickFrame: false,
     title: "Happy Park",
     icon: "assets/img/atracoes.png",
+    // autoHideMenuBar: true, //Não mostrar a barra de menu
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
