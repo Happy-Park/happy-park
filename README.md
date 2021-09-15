@@ -52,7 +52,7 @@ $ cd happy-park
 # Install dependencies
 $ npm install
 
-# You can use the script located in ./assets/ScriptCreateDB.sql to create the database
+# You can use the script located in ./assets/ScriptCreateDB.sql to create a PostgreSQL database
 # In the project, change the variables in ./src/postgres.js to your database.
 
 # Start the application
