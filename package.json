@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "commit": "git-cz",
-    "build": "yarn electron-packager ./ HappyPark --platform=win32 --arch=x64 --overwrite",
+    "build-win": "electron-packager ./ HappyPark --platform=win32 --arch=x64 --overwrite",
+    "build-linux": "electron-packager ./ HappyPark --platform=linux --arch=x64 --overwrite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Francisco",
