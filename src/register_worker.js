@@ -34,7 +34,7 @@ var table = new Tabulator("#tableClient", {
     {
       title: "Telefone",
       field: "Telefone",
-      headerFilter: true,
+      headerFilter: "number",
       headerFilterLiveFilter: true,
       headerFilterPlaceholder: "Filtar telefone",
     },
