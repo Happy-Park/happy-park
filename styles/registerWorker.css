@@ -119,8 +119,8 @@ body {
 }
 
 #tableClient {
-   height: 100%;
-   width: 100%;
+   height: 90%;
+   width:87.3vw;
    margin-top: 3%;
    /* display: flex; */
    justify-content: center;
