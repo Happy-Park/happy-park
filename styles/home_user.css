@@ -1,0 +1,89 @@
+obody, html{
+    height: 100%;
+    width: 100%;
+ }
+ 
+ body {
+    margin: 0;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    display: inline-flex;
+   background:
+      /* top, transparent black, faked with gradient */ 
+      linear-gradient(
+        rgba(0, 0, 0, 0.2), 
+        rgba(0, 0, 0, 0.3)
+      ),
+      /* bottom, image */
+      url(../assets/background_main.jpg);
+    background-size: cover;
+  }
+ 
+ #menu {
+    text-align: center;
+    height: 100%;
+    padding: 0%;
+    margin: 0%;
+    background-color: white;
+    width: 8vw;
+    font-size: 80%;
+ }
+ 
+ #menu ul{
+    margin: 0%;
+    padding: 2vw 0vw 2vw 0vw;
+ }
+ 
+ #menu li{
+    list-style: none;
+    padding: 2vh 0 0 0;
+    text-decoration: none;
+ }
+ 
+ #menu li a{
+    text-decoration: none;
+ }
+ 
+ #menu li p{
+    text-decoration: none;
+    margin: 0;
+ }
+ 
+ #menu li a img{
+    width: 4vw;
+ }
+ 
+ #center {
+    text-align: center;
+    height: 100%;
+    padding: 0%;
+    margin: 0%;
+    width: 92vw;
+ }
+ 
+ #weather-principal {
+    float: right;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    align-items: center;
+ }
+ 
+ #img-weather {
+    width: 4vw;
+    margin: 5vh 0 0 0;
+    padding: 0;
+ }
+ 
+ #weather, #weather-description {
+    font-size: 90%;
+    margin: 0;
+    padding: 2px 0 0 0;
+ }
+ 
+ #hour {
+    margin: 0;
+    padding: 0;
+    font-size: 120%;
+ }
