@@ -1,10 +1,8 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
-let window;
-
-async function createWindow() {
-  window = new BrowserWindow({
+app.on("ready", function () {
+  let window = new BrowserWindow({
     width: 1200,
     height: 700,
     minHeight: 700,
@@ -13,6 +11,8 @@ async function createWindow() {
     thickFrame: false,
     title: "Happy Park",
     icon: "assets/img/atracoes.png",
+    titleBarStyle: "hidden",
+    show: false,
     // autoHideMenuBar: true, //Não mostrar a barra de menu
     webPreferences: {
       nodeIntegration: true,
@@ -20,8 +20,16 @@ async function createWindow() {
       enableRemoteModule: true,
     },
   });
-  window.loadFile(path.join(__dirname, "../pages/home_user.html"));
-}
-
-app.on("ready", createWindow);
-
+  window.loadFile(path.join(__dirname, "../pages/login.html"));
+  let splash = new BrowserWindow({
+    width: 512,
+    height: 512,
+    frame: false,
+  });
+  splash.loadFile(path.join(__dirname, "../assets/img/atracoes.png"));
+  window.once("ready-to-show", () => {
+    setTimeout(function () {
+      splash.close(), window.show();
+    }, 3000);
+  });
+});
