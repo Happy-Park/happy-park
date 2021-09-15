@@ -185,6 +185,11 @@
     "global-agent" "^2.0.2"
     "global-tunnel-ng" "^2.7.1"
 
+"@glidejs/glide@^3.4.1":
+  "integrity" "sha512-C34AEcK1HjSyxilRToUL54I6KAoodojUbeRlXoruobZuG0eGm8xfDL+3kgkWj7AJK4EZtunSOYfoqMp70eDtwg=="
+  "resolved" "https://registry.npmjs.org/@glidejs/glide/-/glide-3.4.1.tgz"
+  "version" "3.4.1"
+
 "@malept/cross-spawn-promise@^1.1.0":
   "integrity" "sha512-RTBGWL5FWQcg9orDOCcp4LvItNzUPcyEU9bwaeJX0rJ1IQxzucC48Y0/sQLp/g6t99IQgAlGIaesJS+gTn7tVQ=="
   "resolved" "https://registry.npmjs.org/@malept/cross-spawn-promise/-/cross-spawn-promise-1.1.1.tgz"
