@@ -7,22 +7,39 @@ require("cleave.js/src/addons/phone-type-formatter.br");
 const downloadTable = document.getElementById("downloadTable");
 let currentClientSelected = [2];
 var table = new Tabulator("#tableClient", {
-  rowClick: function (e, row) {
+  rowClick: function (row) {
     //saves the client's name and email for the selected row
     currentClientSelected[0] = row.getData().Email;
     currentClientSelected[1] = row.getData().Nome;
-    editClientEmail(e, currentClientSelected[0]);
+    editClientEmail(currentClientSelected[0]);
   },
   selectable: 1,
   layout: "fitColumns",
   reactiveData: true,
   columns: [
-    { title: "Nome", field: "Nome" },
-    { title: "Email", field: "Email" },
-    { title: "Telefone", field: "Telefone" },
+    {
+      title: "Nome",
+      field: "Nome",
+      headerFilter: true,
+      headerFilterLiveFilter: true,
+      headerFilterPlaceholder: "Filtar nome",
+    },
+    {
+      title: "Email",
+      field: "Email",
+      headerFilter: true,
+      headerFilterLiveFilter: true,
+      headerFilterPlaceholder: "Filtar Email",
+    },
+    {
+      title: "Telefone",
+      field: "Telefone",
+      headerFilter: true,
+      headerFilterLiveFilter: true,
+      headerFilterPlaceholder: "Filtar telefone",
+    },
   ],
 });
-
 
 let tableData = [];
 const notyf = new Notyf({
@@ -45,7 +62,9 @@ var cpfCleave = new Cleave("#cpf", {
   numericOnly: true,
 });
 
-downloadTable.addEventListener('click', function() {table.download("pdf","TabelaFuncionarios.pdf")} )
+downloadTable.addEventListener("click", function () {
+  table.download("pdf", "TabelaFuncionarios.pdf");
+});
 
 // CRUD - create read update delete
 function deleteClient(user) {
@@ -111,7 +130,7 @@ const updateClient = (index, client) => {
 };
 
 const createClient = (client) => {
-  const query = `insert into usuario values(default,${client.cpf},'${client.nome}','${client.telefone}','${client.email}','${client.senha}','${client.nascimento}',${client.cidade},${client.admin}, true)`;
+  const query = `insert into usuario values(default,${client.cpf},'${client.nome}','${client.telefone}','${client.email}','${client.senha}','${client.nascimento}',${client.admin},true, '${client.cidade}', '${client.uf}')`;
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Não foi possível realizar seu cadastro. Verifique!");
@@ -154,33 +173,22 @@ const createRow = (client) => {
 };
 
 const fillFields = (client) => {
-  let rows;
-  db.query(
-    `select cidades.nome, estados.uf from cidades, estados where cidades.id=${client.cidade} and cidades.id_estado=estados.id`,
-    (err, res) => {
-      if (err) {
-        console.log(err);
-      } else {
-        rows = res.rows;
-      }
-      document.getElementById("name").value = client.nome;
-      document.getElementById("email").value = client.email;
-      document.getElementById("phone").value = client.telefone;
-      document.getElementById("uf").disabled = true;
-      //document.getElementById('uf').value = rows[0].uf
-      document.getElementById("cpf").value = client.cpf;
-      document.getElementById("birthdate").value = client.nascimento;
-      document.getElementById("admin").checked = client.admin;
-      let senha = document.getElementById("password");
-      senha.value = client.senha;
-      senha.disabled = true;
-      document.getElementById("city").disabled = true;
-      //document.getElementById('city').selected = rows[0].nome
-    }
-  );
+  document.getElementById("name").value = client.nome;
+  document.getElementById("email").value = client.email;
+  document.getElementById("phone").value = client.telefone;
+  document.getElementById("uf").disabled = true;
+  document.getElementById("city").disabled = true;
+  document.getElementById("city").value = client.cidade;
+  document.getElementById("uf").value = client.uf;
+  document.getElementById("cpf").value = client.cpf;
+  document.getElementById("birthdate").value = client.nascimento;
+  document.getElementById("admin").checked = client.admin;
+  let senha = document.getElementById("password");
+  senha.value = client.senha;
+  senha.disabled = true;
 };
 
-const editClientEmail = (e, email) => {
+const editClientEmail = (email) => {
   db.query(`select * from usuario where email ='${email}'`, (err, res) => {
     if (err) {
       console.log(err);
@@ -189,7 +197,7 @@ const editClientEmail = (e, email) => {
       let data = new Date(client.nascimento);
       let date = data.toISOString().split("T")[0];
       client.nascimento = date;
-      fillFields(e, client);
+      fillFields(client);
       document.getElementById("deletar").disabled = false;
       openModal();
     }
@@ -204,58 +212,47 @@ const clearFields = () => {
 const saveClient = (event) => {
   let client;
   let city = document.getElementById("city").value;
-  db.query(
-    `select cidades.id from cidades where cidades.nome='${city}'`,
-    (err, res) => {
-      if (err) {
-        console.log(err);
-      } else {
-        if (res.rowCount > 0) {
-          city = res.rows[0].id;
+  let uf = document.getElementById("uf").value;
+  client = {
+    nome: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    telefone: document.getElementById("phone").value.replaceAll(" ", ""),
+    cpf: document
+      .getElementById("cpf")
+      .value.replaceAll(".", "")
+      .replaceAll("-", ""),
+    nascimento: birthdate.value,
+    senha: crypto
+      .createHash("sha256")
+      .update(document.getElementById("password").value)
+      .digest("hex"),
+    admin: document.getElementById("admin").checked,
+    cidade: city,
+    uf: uf,
+    funcionario: true,
+  };
+  if (novo == true) {
+    createClient(client);
+    updateTable();
+    closeModal();
+    novo = false;
+  } else {
+    let index;
+    db.query(
+      // FAZER WHERE USANDO ID PARA PODER ALTERAR QUALQUER CAMPO
+      `select usuario.id from usuario where usuario.cpf='${client.cpf}'`,
+      (err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          index = res.rows[0].id;
+          updateClient(index, client);
+          updateTable();
+          closeModal();
         }
       }
-      client = {
-        nome: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        telefone: document.getElementById("phone").value.replaceAll(" ", ""),
-        cpf: document
-          .getElementById("cpf")
-          .value.replaceAll(".", "")
-          .replaceAll("-", ""),
-        nascimento: birthdate.value,
-        senha: crypto
-          .createHash("sha256")
-          .update(document.getElementById("password").value)
-          .digest("hex"),
-        admin: document.getElementById("admin").checked,
-        cidade: city,
-        funcionario: true,
-      };
-
-      if (novo == true) {
-        createClient(client);
-        updateTable();
-        closeModal();
-        novo = false;
-      } else {
-        let index;
-        db.query(
-          // FAZER WHERE USANDO ID PARA PODER ALTERAR QUALQUER CAMPO
-          `select usuario.id from usuario where usuario.cpf='${client.cpf}'`,
-          (err, res) => {
-            if (err) {
-              console.log(err);
-            } else {
-              index = res.rows[0].id;
-              updateClient(index, client);
-              updateTable();
-              closeModal();
-            }
-          }
-        );
-      }
-    }
-  );
+    );
+  }
 };
 
 const openModal = () =>
