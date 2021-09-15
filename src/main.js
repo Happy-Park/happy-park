@@ -20,7 +20,7 @@ async function createWindow() {
       enableRemoteModule: true,
     },
   });
-  window.loadFile(path.join(__dirname, "../pages/login.html"));
+  window.loadFile(path.join(__dirname, "../pages/home_user.html"));
 }
 
 app.on("ready", createWindow);

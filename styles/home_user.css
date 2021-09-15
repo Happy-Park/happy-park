@@ -1,0 +1,22 @@
+body, html{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+ }
+
+img{
+    height: 50vh;
+    width: 100%;
+}
+
+.glide__arrow {
+    background-color: black !important;
+
+}
+
+.glide__slide p{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    text-decoration: underline;
+}
