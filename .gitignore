@@ -2,3 +2,8 @@ node_modules
 .env
 HappyPark-win32-x64/
 HappyPark-linux-x64/
+HappyPark-macos-x64/
+
+.vscode/*
+.vscode
+.vscode/settings.json
