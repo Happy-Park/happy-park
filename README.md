@@ -59,7 +59,10 @@ $ npm install
 $ npm start
 
 # To build the Windows version
-$ npm run build
+$ npm run build-win
+
+# To build the Linux version
+$ npm run build-linux
 
 ```
 
