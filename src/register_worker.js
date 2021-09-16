@@ -1,4 +1,5 @@
 const db = require("../src/postgres");
+const tableFunctions = require('../src/tableFunctions')
 const crypto = require("crypto");
 const Cleave = require("cleave.js");
 window.jsPDF = window.jspdf.jsPDF;
@@ -7,7 +8,7 @@ require("cleave.js/src/addons/phone-type-formatter.br");
 const downloadTable = document.getElementById("downloadTable");
 let currentClientSelected = [2];
 var table = new Tabulator("#tableClient", {
-  rowClick: function (row) {
+  rowClick: function (e, row) {
     //saves the client's name and email for the selected row
     currentClientSelected[0] = row.getData().Email;
     currentClientSelected[1] = row.getData().Nome;
@@ -172,21 +173,21 @@ const createRow = (client) => {
   });
 };
 
-const fillFields = (client) => {
-  document.getElementById("name").value = client.nome;
-  document.getElementById("email").value = client.email;
-  document.getElementById("phone").value = client.telefone;
-  document.getElementById("uf").disabled = true;
-  document.getElementById("city").disabled = true;
-  document.getElementById("city").value = client.cidade;
-  document.getElementById("uf").value = client.uf;
-  document.getElementById("cpf").value = client.cpf;
-  document.getElementById("birthdate").value = client.nascimento;
-  document.getElementById("admin").checked = client.admin;
-  let senha = document.getElementById("password");
-  senha.value = client.senha;
-  senha.disabled = true;
-};
+// const fillFields = (client) => {
+//   document.getElementById("name").value = client.nome;
+//   document.getElementById("email").value = client.email;
+//   document.getElementById("phone").value = client.telefone;
+//   document.getElementById("uf").disabled = true;
+//   document.getElementById("city").disabled = true;
+//   document.getElementById("city").value = client.cidade;
+//   document.getElementById("uf").value = client.uf;
+//   document.getElementById("cpf").value = client.cpf;
+//   document.getElementById("birthdate").value = client.nascimento;
+//   document.getElementById("admin").checked = client.admin;
+//   let senha = document.getElementById("password");
+//   senha.value = client.senha;
+//   senha.disabled = true;
+// };
 
 const editClientEmail = (email) => {
   db.query(`select * from usuario where email ='${email}'`, (err, res) => {
@@ -197,7 +198,7 @@ const editClientEmail = (email) => {
       let data = new Date(client.nascimento);
       let date = data.toISOString().split("T")[0];
       client.nascimento = date;
-      fillFields(client);
+      tableFunctions.fillFields(client)
       document.getElementById("deletar").disabled = false;
       openModal();
     }
