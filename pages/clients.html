@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../node_modules/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <link rel="stylesheet" href="../styles/clients.css">
+    <title>Clientes</title>
+</head>
+<body>
+    <div id="center">
+        <div id="principal">
+          <h2>Cadastro de Clientes</h2>
+          <button id="cadastrarCliente"> Cadastrar Cliente</button>
+          <button id="downloadTable">Download Tabela PDF</button>
+          <table id="tableClient" class="records">
+        </table>
+        </div>
+      </div>
+      <div class="modal" id="modal">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2>Novo Usuário</h2>
+                <span class="modal-close" id="modalClose">&#10006;</span>
+            </header>
+            <form id="form" class="modal-form">
+                <input type="text" id="name" data-index="new" class="modal-field" placeholder="Nome do Cliente"
+                    required>
+                <input type="email" id="email" class="modal-field" placeholder="e-mail do Cliente" required>
+                <input class="modal-field" id="phone" type="text" placeholder="Telefone"/>
+                <input class="modal-field" id="cpf" type="text" placeholder="CPF" required/>
+                <input class="modal-field" id="birthdate" type="date" placeholder="Data de Nascimento" required/>
+                <input class="modal-field" id="password" type="password" placeholder="Senha" required />               
+                <div id="select">
+                  <select id="uf" placeholder="Estado" required></select>
+                  <select id="city" placeholder="Cidade" required></select>
+                </div>             
+            </form>
+            <footer class="modal-footer">
+              <button id="deletar">Deletar</button>
+                <button id="salvar" class="button green">Salvar</button>
+                <button id="cancelar" class="button blue">Cancelar</button>
+            </footer>
+        </div>
+      </div>
+  
+      <script src="../node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+  <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
+      <script type="text/javascript" src="../node_modules/tabulator-tables/dist/js/tabulator.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+      <script src="../node_modules/cleave.js/dist/cleave.min.js"></script>
+      <script src="../node_modules/cleave.js/dist/addons/cleave-phone.br.js"></script>
+      <script src="../src/uf_cities.js"></script>
+      <script src="../src/clients.js"></script>  
+</body>
+</html>
