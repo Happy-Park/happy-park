@@ -1,14 +1,16 @@
 const db = require("../src/postgres");
+db.connect()
 const crypto = require("crypto");
 const Cleave = require("cleave.js");
 window.jsPDF = window.jspdf.jsPDF;
 const downloadTable = document.getElementById("downloadTable");
-let currentAtracaoSelected = [2];
+let currentAtracaoSelected = [3];
 var table = new Tabulator("#tableAtracao", {
-  rowClick: function (row) {
+  rowClick: function (e,row) {
     //saves the client's name and email for the selected row
     currentAtracaoSelected[0] = row.getData().Nome;
     currentAtracaoSelected[1] = row.getData().Capacidade;
+    currentAtracaoSelected[2] = row.getData().Categoria;
     editAtracao(currentAtracaoSelected[0]);
   },
   selectable: 1,
@@ -36,6 +38,11 @@ var table = new Tabulator("#tableAtracao", {
       headerFilterLiveFilter: true,
       headerFilterPlaceholder: "Filtrar Capacidade",
     },
+    {title: 'Categoria',
+  field:'Categoria',
+  headerFilter: true,
+  headerFilterLiveFilter: true,
+  headerFilterPlaceholder: "Filtrar Categoria",}
   ],
 });
 
@@ -105,16 +112,25 @@ const updateAtracao = (index, atracao) => {
 };
 
 const createAtracao= (atracao) => {
-  const query = `insert into atracao values(default,'${atracao.nome}',${atracao.capacidade})`;
- console.log(query)
+  db.query(`select id from atracaoCateg where descricao='${atracao.categoria}'`, (err,res) => {
+if(err){
+  console.log(err)
+}
+else{
+ let id = res.rows[0].id
+  const query = `insert into atracao values(default,'${atracao.nome}',${atracao.capacidade}, ${id})`;
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Não foi possível realizar seu cadastro. Verifique!");
       console.log(err);
     } else {
       notyf.success("Cadastro realizado com sucesso!");
+      updateTable()
     }
   });
+}
+  
+})
 };
 
 const updateTable = () => {
@@ -129,10 +145,10 @@ const updateTable = () => {
       //For each atracao in the array, adds its data to it
       res.rows.forEach((element) => {
         tableData[i] = {
-          ID: element.ID,
-          Nome: element.Nome,
-          Capacidade: element.Capacidade,
-          Categoria: element.Categoria
+          ID: element.id,
+          Nome: element.descricao,
+          Capacidade: element.capacidade,
+          Categoria: element.atracaocateg
         };
         i++;
       });
@@ -141,21 +157,13 @@ const updateTable = () => {
   });
 };
 
-const createRow = (atracao) => {
-  tableData.push({
-    ID: atracao.id,
-    Nome: atracao.nome,
-    Capacidade: atracao.capacidade,
-  });
-};
-
 const fillFields = (atracao) => {
-  document.getElementById("name").value = atracao.nome;
-  document.getElementById("capacidade").value = atracao.email;
+  document.getElementById("name").value = atracao.descricao;
+  document.getElementById("capacidade").value = atracao.capacidade;
 };
 
-const editAtracao = (nome) => {
-  db.query(`select * from atracao where nome ='${nome}'`, (err, res) => {
+const editAtracao = (descricao) => {
+  db.query(`select * from atracao where descricao ='${descricao}'`, (err, res) => {
     if (err) {
       console.log(err);
     } else {
@@ -176,7 +184,8 @@ const saveAtracao = (event) => {
   let atracao;
   atracao = {
     nome: document.getElementById("name").value,
-    capacidade: document.getElementById("capacidade").value
+    capacidade: document.getElementById("capacidade").value,
+    categoria: document.getElementById('atracaoCateg').value
   };
   if (novo == true) {
     createAtracao(atracao);
@@ -187,7 +196,7 @@ const saveAtracao = (event) => {
     let index;
     db.query(
       // FAZER WHERE USANDO ID PARA PODER ALTERAR QUALQUER CAMPO
-      `select atracao.id from atracao where atracao.nome='${atracao.nome}'`,
+      `select atracao.id from atracao where atracao.descricao='${atracao.nome}'`,
       (err, res) => {
         if (err) {
           console.log(err);
@@ -203,29 +212,31 @@ const saveAtracao = (event) => {
 };
 
 const openModal = () => {
+      document.getElementById("modal").classList.add("active");
+}
+
+const cadastrarAtracao = () => {
+  novo = true;
   let atracaoCateg = document.getElementById('atracaoCateg')
-  db.query(`select descricao from atracaocateg`, (err, res) => {
+  db.query(`select * from atracaocateg`, (err, res) => {
     if(err){
       console.log(err)
     }
     else{
+      let results = []
       let option = document.createElement("option");
       option.innerText = "Categoria";
       atracaoCateg.appendChild(option);
       for(let row of res.rows){
-        option 
+        results[0] = row.id
+        results[1] = row.descricao
+        option = document.createElement('option')
+        option.innerText = results[1]
+        option.classList = results[0]
+        atracaoCateg.appendChild(option)
       }
-      document.getElementById("modal").classList.add("active");
-    }
-  })
-  
-  
-}
-  
-
-const cadastrarAtracao = () => {
-  novo = true;
   document.getElementById("modal").classList.add("active");
+  }})
 };
 
 const closeModal = () => {
