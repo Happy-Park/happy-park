@@ -5,7 +5,6 @@ client.connect();
 const ufs = "select * from estados";
 const ufBox = document.getElementById("uf");
 const citiesBox = document.getElementById("city");
-var query = "";
 let arr = [];
 
 //Retorna response da API
