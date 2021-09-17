@@ -1,17 +1,15 @@
-const db = require("./postgres");
+const db = require("../src/postgres");
 const crypto = require("crypto");
 const Cleave = require("cleave.js");
 window.jsPDF = window.jspdf.jsPDF;
-require("cleave.js/dist/addons/cleave-phone.br");
-require("cleave.js/src/addons/phone-type-formatter.br");
 const downloadTable = document.getElementById("downloadTable");
 let currentAtracaoSelected = [2];
 var table = new Tabulator("#tableAtracao", {
   rowClick: function (row) {
     //saves the client's name and email for the selected row
-    currentAtracaoSelected[0] = row.getData().Email;
-    currentAtracaoSelected[1] = row.getData().Nome;
-    editClientEmail(currentAtracaoSelected[0]);
+    currentAtracaoSelected[0] = row.getData().Nome;
+    currentAtracaoSelected[1] = row.getData().Capacidade;
+    editAtracao(currentAtracaoSelected[0]);
   },
   selectable: 1,
   layout: "fitColumns",
@@ -93,20 +91,9 @@ const readAtracao = (index) => {
   return x;
 };
 
-const readClientEmail = (email) => {
-  var x = "";
-  const query = `select * from usuario where email='${email}'`;
-  db.query(query, (err, res) => {
-    if (err) {
-      console.log(err);
-    }
-    x = res.rows[0];
-  });
-  return x;
-};
 
 const updateAtracao = (index, atracao) => {
-  const query = `UPDATE atracao SET cpf = ${client.cpf}, nome = '${client.nome}', telefone = '${client.telefone}', email = '${client.email}', senha ='${client.senha}', nascimento = '${client.nascimento}', admin = ${client.admin} WHERE id = ${index}`;
+  const query = `UPDATE atracao SET nome = '${atracao.nome}',capacidade =${atracao.capacidade} WHERE id = ${index}`;
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Não foi possível editar o cadastro. Verifique!");
@@ -118,7 +105,8 @@ const updateAtracao = (index, atracao) => {
 };
 
 const createAtracao= (atracao) => {
-  const query = `insert into atracao values(default,${client.cpf},'${client.nome}','${client.telefone}','${client.email}','${client.senha}','${client.nascimento}',${client.admin},true, '${client.cidade}', '${client.uf}')`;
+  const query = `insert into atracao values(default,'${atracao.nome}',${atracao.capacidade})`;
+ console.log(query)
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Não foi possível realizar seu cadastro. Verifique!");
@@ -131,7 +119,7 @@ const createAtracao= (atracao) => {
 
 const updateTable = () => {
   table.clearData();
-  const query = "select * from atracao where funcionario = true";
+  const query = "select * from atracao";
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Erro ao carregar os as atrações. Verifique!");
@@ -142,8 +130,9 @@ const updateTable = () => {
       res.rows.forEach((element) => {
         tableData[i] = {
           ID: element.ID,
-          Email: element.Nome,
+          Nome: element.Nome,
           Capacidade: element.Capacidade,
+          Categoria: element.Categoria
         };
         i++;
       });
@@ -163,19 +152,15 @@ const createRow = (atracao) => {
 const fillFields = (atracao) => {
   document.getElementById("name").value = atracao.nome;
   document.getElementById("capacidade").value = atracao.email;
-  senha.value = atracao.senha;
 };
 
-const editClientEmail = (email) => {
-  db.query(`select * from usuario where email ='${email}'`, (err, res) => {
+const editAtracao = (nome) => {
+  db.query(`select * from atracao where nome ='${nome}'`, (err, res) => {
     if (err) {
       console.log(err);
     } else {
-      let client = res.rows[0];
-      let data = new Date(client.nascimento);
-      let date = data.toISOString().split("T")[0];
-      client.nascimento = date;
-      fillFields(client);
+      let atracao = res.rows[0];
+      fillFields(atracao);
       document.getElementById("deletar").disabled = false;
       openModal();
     }
@@ -187,30 +172,14 @@ const clearFields = () => {
   fields.forEach((field) => (field.value = ""));
 };
 
-const saveClient = (event) => {
-  let client;
-  let city = document.getElementById("city").value;
-  let uf = document.getElementById("uf").value;
-  client = {
+const saveAtracao = (event) => {
+  let atracao;
+  atracao = {
     nome: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    telefone: document.getElementById("phone").value.replaceAll(" ", ""),
-    cpf: document
-      .getElementById("cpf")
-      .value.replaceAll(".", "")
-      .replaceAll("-", ""),
-    nascimento: birthdate.value,
-    senha: crypto
-      .createHash("sha256")
-      .update(document.getElementById("password").value)
-      .digest("hex"),
-    admin: document.getElementById("admin").checked,
-    cidade: city,
-    uf: uf,
-    funcionario: true,
+    capacidade: document.getElementById("capacidade").value
   };
   if (novo == true) {
-    createClient(client);
+    createAtracao(atracao);
     updateTable();
     closeModal();
     novo = false;
@@ -218,13 +187,13 @@ const saveClient = (event) => {
     let index;
     db.query(
       // FAZER WHERE USANDO ID PARA PODER ALTERAR QUALQUER CAMPO
-      `select usuario.id from usuario where usuario.cpf='${client.cpf}'`,
+      `select atracao.id from atracao where atracao.nome='${atracao.nome}'`,
       (err, res) => {
         if (err) {
           console.log(err);
         } else {
           index = res.rows[0].id;
-          updateClient(index, client);
+          updateAtracao(index, atracao);
           updateTable();
           closeModal();
         }
@@ -233,14 +202,30 @@ const saveClient = (event) => {
   }
 };
 
-const openModal = () =>
-  document.getElementById("modal").classList.add("active");
+const openModal = () => {
+  let atracaoCateg = document.getElementById('atracaoCateg')
+  db.query(`select descricao from atracaocateg`, (err, res) => {
+    if(err){
+      console.log(err)
+    }
+    else{
+      let option = document.createElement("option");
+      option.innerText = "Categoria";
+      atracaoCateg.appendChild(option);
+      for(let row of res.rows){
+        option 
+      }
+      document.getElementById("modal").classList.add("active");
+    }
+  })
+  
+  
+}
+  
 
-const cadastrarCliente = () => {
+const cadastrarAtracao = () => {
   novo = true;
   document.getElementById("modal").classList.add("active");
-  document.getElementById("password").disabled = false;
-  document.getElementById("uf").disabled = false;
 };
 
 const closeModal = () => {
@@ -253,13 +238,13 @@ const closeModal = () => {
 updateTable();
 
 document
-  .getElementById("cadastrarCliente")
-  .addEventListener("click", cadastrarCliente);
+  .getElementById("cadastrarAtracao")
+  .addEventListener("click", cadastrarAtracao);
 
 document.getElementById("modalClose").addEventListener("click", closeModal);
 
-document.getElementById("salvar").addEventListener("click", saveClient);
+document.getElementById("salvar").addEventListener("click", saveAtracao);
 
-document.getElementById("deletar").addEventListener("click", toDeleteClient);
+document.getElementById("deletar").addEventListener("click", toDeleteAtracao);
 
 document.getElementById("cancelar").addEventListener("click", closeModal);
