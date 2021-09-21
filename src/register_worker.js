@@ -2,6 +2,7 @@ const db = require("../src/postgres");
 const tableFunctions = require('../src/tableFunctions')
 const crypto = require("crypto");
 const Cleave = require("cleave.js");
+const { getEnvironmentData } = require("worker_threads");
 window.jsPDF = window.jspdf.jsPDF;
 require("cleave.js/dist/addons/cleave-phone.br");
 require("cleave.js/src/addons/phone-type-formatter.br");
@@ -64,7 +65,14 @@ var cpfCleave = new Cleave("#cpf", {
 });
 
 downloadTable.addEventListener("click", function () {
-  table.download("pdf", "TabelaFuncionarios.pdf");
+  table.download("pdf", "TabelaFuncionarios.pdf",{
+    title: 'Relatório de Funcionários',
+    autoTable: {
+      theme: 'grid'
+    },
+    rowGroupStyles: 'grid'
+    
+  });
 });
 
 // CRUD - create read update delete
