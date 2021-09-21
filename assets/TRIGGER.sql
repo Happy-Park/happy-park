@@ -1,4 +1,3 @@
---LOG
 CREATE OR REPLACE FUNCTION INSERT_LOG() RETURNS trigger 
 LANGUAGE plpgsql
 as $$
@@ -10,23 +9,22 @@ BEGIN
         v_old_data := ROW(OLD.*);
         v_new_data := ROW(NEW.*);
         insert into LOG (ID, TIPO, TABELA, COMANDO, IP, DATA, VALORNOVO, VALORANT, USUARIO)   
-        values (DEFAULT, TG_OP::TEXT, TG_TABLE_NAME::TEXT, current_query(), pg_stat_activity.client_addr, current_timestamp, v_new_data, v_old_data, USUARIO);
+        values (DEFAULT, TG_OP::TEXT, TG_TABLE_NAME::TEXT, current_query(),(select distinct pg_stat_activity.client_addr from pg_stat_activity where datname='db9f7549degn1u'), current_timestamp, v_new_data, v_old_data, (select id from usuario where logado = true));
         RETURN NEW;
     elsif (TG_OP = 'DELETE') then
         v_old_data := ROW(OLD.*);
-        insert into audit.logged_actions (schema_name,table_name,user_name,action,original_data,query)
-        values (TG_TABLE_SCHEMA::TEXT,TG_TABLE_NAME::TEXT,session_user::TEXT,substring(TG_OP,1,1),v_old_data, current_query());
+        insert into LOG (ID, TIPO, TABELA, COMANDO, IP, DATA, VALORANT, USUARIO)  
+        values (DEFAULT, TG_OP::TEXT, TG_TABLE_NAME::TEXT, current_query(), (select distinct pg_stat_activity.client_addr from pg_stat_activity where datname='db9f7549degn1u') , current_timestamp, v_old_data,(select id from usuario where logado = true));
         RETURN OLD;
     elsif (TG_OP = 'INSERT') then
         v_new_data := ROW(NEW.*);      
         insert into LOG (ID, TIPO, TABELA, COMANDO, IP, DATA, VALORNOVO, USUARIO)   
-        values (DEFAULT, TG_OP::TEXT, TG_TABLE_NAME::TEXT, current_query(), pg_stat_activity.client_addr, current_timestamp, v_new_data, USUARIO);
+        values (DEFAULT, TG_OP::TEXT, TG_TABLE_NAME::TEXT, current_query(), (select distinct pg_stat_activity.client_addr from pg_stat_activity where datname='db9f7549degn1u') , current_timestamp, v_new_data, (select id from usuario where logado = true));
         RETURN NEW;
     else
         RAISE WARNING '[AUDIT.IF_MODIFIED_FUNC] - Other action occurred: %, at %',TG_OP,now();
         RETURN NULL;
     end if;
-
 END;
 $$
 
