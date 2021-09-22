@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const db = require("../src/postgres");
+const db = require("../src/postgres").client;
 
 const notyf = new Notyf({
   position: {
