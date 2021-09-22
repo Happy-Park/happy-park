@@ -33,6 +33,36 @@
       </div>
     </div>
 
+    <div class="modal" id="modal">
+      <div class="modal-content">
+          <header class="modal-header">
+              <h2>Detalhes De Auditoria</h2>
+              <span class="modal-close" id="modalClose">&#10006;</span>
+          </header>
+          <form id="form" class="modal-form">
+              <h2>ID</h2>
+              <input type="text" id="ID" data-index="new" class="modal-field" readonly>
+              <h2>Tipo</h2>
+              <input class="modal-field" id="tipo" readonly>
+              <h2>Tabela</h2>
+              <input class="modal-field" id="tabela" type="text" readonly/>
+              <h2 class="valores">Comando</h2>
+              <textarea class="modal-field" id="comando" type="text" readonly></textarea>
+              <h2>Data</h2>
+              <input class="modal-field" id="data" readonly/>
+              <h2>Usuario</h2>
+              <input class="modal-field" id="usuario" readonly/>
+              <h2 id="h2-ip">Ip</h2>
+              <input class="modal-field" id="ip" readonly/>
+              <h2 class="valores">Valor Novo</h2>
+              <textarea class="modal-field" id="valornovo" readonly>
+              </textarea>
+              <h2 class="valores">Valor antigo</h2>
+              <textarea class="modal-field" id="valorant" readonly></textarea>                      
+            </form>
+      </div>
+    </div>
+
     <script src="../node_modules/jspdf/dist/jspdf.umd.min.js"></script>
 <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
     <script type="text/javascript" src="../node_modules/tabulator-tables/dist/js/tabulator.min.js"></script>

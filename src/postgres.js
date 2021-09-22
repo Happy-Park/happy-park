@@ -14,8 +14,8 @@ const client = new Client({
   },
 });
 
-function insert(table,query) {
-  client.query(`insert into ${table} values(${query})`, (err, res) => {
+function query(query) {
+  client.query(query, (err, res) => {
     if (err) {
       return err;
     } else {
@@ -24,4 +24,4 @@ function insert(table,query) {
   });
 }
 
-module.exports = client;
+module.exports = {client, query};

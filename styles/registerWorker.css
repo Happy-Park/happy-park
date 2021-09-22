@@ -126,36 +126,6 @@ body {
    justify-content: center;
 }
 
-
-/*
-.records{
-   width: 85%;
-   user-select: none;
-   text-align: left;
-}
-
-.records th{
-   height: 65%;
-   background-color: orange;
-   padding-left: 1vw;
-   font-size: 1.2rem;    
-}
-.records td{
-   height: 50px;
-   padding-left: 20px;
-}
-
-.records th:last-child,
-.records td:last-child{
-   padding: 0;
-   min-width: 140px;
-   text-align: center;
-}
-
-.records tr:hover{
-   background-color: #eaeaea;
-}
-*/
 .modal{
    position: fixed;
    top:0;

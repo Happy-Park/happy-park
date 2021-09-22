@@ -1,4 +1,5 @@
-const db = require("../src/postgres");
+const db = require("../src/postgres").client;
+const query = require("../src/postgres").insert;
 const tableFunctions = require('../src/tableFunctions')
 const crypto = require("crypto");
 const Cleave = require("cleave.js");
@@ -180,22 +181,6 @@ const createRow = (client) => {
     Telefone: client.telefone,
   });
 };
-
-// const fillFields = (client) => {
-//   document.getElementById("name").value = client.nome;
-//   document.getElementById("email").value = client.email;
-//   document.getElementById("phone").value = client.telefone;
-//   document.getElementById("uf").disabled = true;
-//   document.getElementById("city").disabled = true;
-//   document.getElementById("city").value = client.cidade;
-//   document.getElementById("uf").value = client.uf;
-//   document.getElementById("cpf").value = client.cpf;
-//   document.getElementById("birthdate").value = client.nascimento;
-//   document.getElementById("admin").checked = client.admin;
-//   let senha = document.getElementById("password");
-//   senha.value = client.senha;
-//   senha.disabled = true;
-// };
 
 const editClientEmail = (email) => {
   db.query(`select * from usuario where email ='${email}'`, (err, res) => {
