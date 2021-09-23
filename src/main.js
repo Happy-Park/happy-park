@@ -1,8 +1,10 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
-
+const db = require("./postgres").client;
+db.connect()
+let window;
 app.on("ready", function () {
-  let window = new BrowserWindow({
+  window = new BrowserWindow({
     width: 1200,
     height: 700,
     minHeight: 700,
@@ -31,5 +33,27 @@ app.on("ready", function () {
     setTimeout(function () {
       splash.close(), window.show();
     }, 3000);
+  });
+
+  window.on('ready-to-show', () => {
+    db.query("select * from set_logado(3)", (err, res) => {
+      if (err) {
+        console.log(err);
+        app.quit()
+      } else {
+      }
+    });
+  })
+
+  window.on('closed', (e) => {
+      db.query("select * from set_logado(3)", (err, res) => {
+        if (err) {
+          console.log(err);
+          e.preventDefault()
+        } else {
+          e.defaultPrevented = false
+          app.quit();
+        }
+      });
   });
 });

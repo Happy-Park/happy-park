@@ -4,7 +4,6 @@ window.jsPDF = window.jspdf.jsPDF;
 let currentAtracaoSelected = [2];
 var table = new Tabulator("#tableAtracao", {
   rowClick: function (e,row) {
-    //saves the client's name and email for the selected row
     currentAtracaoSelected[0] = row.getData().Descricao;
     currentAtracaoSelected[1] = row.getData().Situacao;
     editAtracao(currentAtracaoSelected[0]);
@@ -124,7 +123,6 @@ const updateTable = () => {
       console.log(err);
     } else {
       let i = 0;
-      //For each atracao in the array, adds its data to it
       res.rows.forEach((element) => {
         tableData[i] = {
           ID: element.id,

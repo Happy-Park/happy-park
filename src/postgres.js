@@ -17,7 +17,6 @@ const client = new Client({
 function query(query) {
   client.query(query, (err, res) => {
     if (err) {
-      updateErrorLog(query, err);
       return err;
     } else {
       return res;
@@ -38,3 +37,4 @@ function updateErrorLog(query, error){
 }
 
 module.exports = {client, query, updateErrorLog};
+

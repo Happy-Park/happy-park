@@ -9,7 +9,7 @@ BEGIN
         v_old_data := ROW(OLD.*);
         v_new_data := ROW(NEW.*);
         insert into LOG (ID, TIPO, TABELA, COMANDO, IP, DATA, VALORNOVO, VALORANT, USUARIO)   
-        values (DEFAULT, TG_OP::TEXT, TG_TABLE_NAME::TEXT, current_query(),(select distinct pg_stat_activity.client_addr from pg_stat_activity where datname='db9f7549degn1u'), current_timestamp, v_new_data, v_old_data, (select id from usuario where logado = true));
+        values (DEFAULT, TG_OP::TEXT, TG_TABLE_NAME::TEXT, current_query(),(select distinct pg_stat_activity.client_addr from pg_stat_activity where datname='db9f7549degn1u'), current_timestamp, v_new_data, v_old_data, 3);
         RETURN NEW;
     elsif (TG_OP = 'DELETE') then
         v_old_data := ROW(OLD.*);

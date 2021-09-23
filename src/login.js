@@ -16,13 +16,14 @@ button.addEventListener("click", function () {
   const query = `select email, senha, funcionario from usuario where email='${user.value}'`;
   db.query(query, (err, res) => {
     if (err) {
-      updateErrorLog(query, err);
       console.error(err);
+      updateErrorLog(query, err);
     }
     password = crypto.createHash("sha256").update(password).digest("hex");
 
     if (res.rowCount === 0) {
       notyf.error("Usuário não encontrado");
+      updateErrorLog(query, err);
     } else {
       if (res.rows[0].email === user.value) {
         if (res.rows[0].senha === password) {
