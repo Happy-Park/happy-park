@@ -51,6 +51,7 @@ button.addEventListener("click", function () {
       notyf.error(
         "Não foi possível realizar seu cadastro. Verifique os dados!"
       );
+      updateErrorLog(query, err);
     } else {
       notyf.success("Cadastro realizado com sucesso!");
       window.location.href = "../pages/login.html";

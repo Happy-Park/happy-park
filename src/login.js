@@ -16,6 +16,7 @@ button.addEventListener("click", function () {
   const query = `select email, senha, funcionario from usuario where email='${user.value}'`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.error(err);
     }
     password = crypto.createHash("sha256").update(password).digest("hex");

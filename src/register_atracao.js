@@ -71,6 +71,7 @@ function deleteAtracao(atracao) {
       db.query(query, (err, res) => {
         if (err) {
           notyf.error("Erro ao excluir a atração. Verifique!");
+          updateErrorLog(query, err);
           console.log(err);
         } else {
           notyf.success("Atração excluída com sucesso!");
@@ -91,6 +92,7 @@ const readAtracao = (index) => {
   const query = `select * from atracao where id=${index}`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.log(err);
     }
     x = res.rows[0];
@@ -104,6 +106,7 @@ const updateAtracao = (index, atracao) => {
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Não foi possível editar o cadastro. Verifique!");
+      updateErrorLog(query, err);
       console.log(err);
     } else {
       notyf.success("Edição realizada com sucesso!");
@@ -114,6 +117,7 @@ const updateAtracao = (index, atracao) => {
 const createAtracao= (atracao) => {
   db.query(`select id from atracaoCateg where descricao='${atracao.categoria}'`, (err,res) => {
 if(err){
+  updateErrorLog(query, err);
   console.log(err)
 }
 else{
@@ -121,6 +125,7 @@ else{
   const query = `insert into atracao values(default,'${atracao.nome}',${atracao.capacidade}, ${id})`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       notyf.error("Não foi possível realizar seu cadastro. Verifique!");
       console.log(err);
     } else {
@@ -139,6 +144,7 @@ const updateTable = () => {
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Erro ao carregar os as atrações. Verifique!");
+      updateErrorLog(query, err);
       console.log(err);
     } else {
       let i = 0;
@@ -166,6 +172,7 @@ const editAtracao = (descricao) => {
   db.query(`select * from atracao where descricao ='${descricao}'`, (err, res) => {
     if (err) {
       console.log(err);
+      updateErrorLog(query, err);
     } else {
       let atracao = res.rows[0];
       fillFields(atracao);
@@ -200,6 +207,7 @@ const saveAtracao = (event) => {
       (err, res) => {
         if (err) {
           console.log(err);
+          updateErrorLog(query, err);
         } else {
           index = res.rows[0].id;
           updateAtracao(index, atracao);
@@ -221,6 +229,7 @@ const cadastrarAtracao = () => {
   db.query(`select * from atracaocateg`, (err, res) => {
     if(err){
       console.log(err)
+      updateErrorLog(query, err);
     }
     else{
       let results = []

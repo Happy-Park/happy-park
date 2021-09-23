@@ -78,6 +78,7 @@ const readAtracao = (index) => {
   const query = `select * from atracaocateg where id=${index}`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.log(err);
     }
     x = res.rows[0];
@@ -90,6 +91,7 @@ const updateatracaocateg = (index, atracaoCateg) => {
   const query = `UPDATE atracaocateg SET descricao = '${atracaoCateg.descricao}',situacao =${atracao.situacao} WHERE id = ${index}`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       notyf.error("Não foi possível editar o cadastro. Verifique!");
       console.log(err);
     } else {
@@ -103,6 +105,7 @@ const createatracaocateg= (atracaoCateg) => {
  console.log(query)
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       notyf.error("Não foi possível realizar seu cadastro. Verifique!");
       console.log(err);
     } else {
@@ -116,6 +119,7 @@ const updateTable = () => {
   const query = "select * from atracaocateg";
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       notyf.error("Erro ao carregar os as atrações. Verifique!");
       console.log(err);
     } else {
@@ -143,6 +147,7 @@ const fillFields = (atracaoCateg) => {
 const editAtracao = (descricao) => {
   db.query(`select * from atracaocateg where descricao ='${descricao}'`, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.log(err);
     } else {
       let atracaocateg = res.rows[0];
@@ -177,6 +182,7 @@ const saveatracaocateg = (event) => {
       `select atracaocateg.id from atracaocateg where atracaocateg.descricao='${atracaocateg.descricao}'`,
       (err, res) => {
         if (err) {
+          updateErrorLog(query, err);
           console.log(err);
         } else {
           index = res.rows[0].id;

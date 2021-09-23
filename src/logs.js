@@ -61,6 +61,7 @@ const updateTable = () => {
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Erro ao carregar os usuários. Verifique!");
+      updateErrorLog(query, err);
       console.log(err);
     } else {
       let i = 0;
@@ -117,6 +118,7 @@ const openLogDetails = (id) => {
   let query = `select * from log where id=${id.ID}`
   db.query(query, (err,res) => {
     if(err){
+      updateErrorLog(query, err);
       console.log(err)
     }
     else{

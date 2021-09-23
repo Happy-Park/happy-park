@@ -86,6 +86,7 @@ function deleteClient(user) {
       let query = `delete from USUARIO where email='${user[0]}'`;
       db.query(query, (err, res) => {
         if (err) {
+          updateErrorLog(query, err);
           notyf.error("Erro ao excluir o usuário. Verifique!");
           console.log(err);
         } else {
@@ -107,6 +108,7 @@ const readClient = (index) => {
   const query = `select * from usuario where id=${index}`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.log(err);
     }
     x = res.rows[0];
@@ -119,6 +121,7 @@ const readClientEmail = (email) => {
   const query = `select * from usuario where email='${email}'`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.log(err);
     }
     x = res.rows[0];
@@ -131,6 +134,7 @@ const updateClient = (index, client) => {
   const query = `UPDATE usuario SET cpf = ${client.cpf}, nome = '${client.nome}', telefone = '${client.telefone}', email = '${client.email}', senha ='${client.senha}', nascimento = '${client.nascimento}', admin = ${client.admin} WHERE id = ${index}`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       notyf.error("Não foi possível editar o cadastro. Verifique!");
       console.log(err);
     } else {
@@ -143,6 +147,7 @@ const createClient = (client) => {
   const query = `insert into usuario values(default,${client.cpf},'${client.nome}','${client.telefone}','${client.email}','${client.senha}','${client.nascimento}',${client.admin},true, '${client.cidade}', '${client.uf}')`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       notyf.error("Não foi possível realizar seu cadastro. Verifique!");
       console.log(err);
     } else {
@@ -156,6 +161,7 @@ const updateTable = () => {
   const query = "select * from usuario where funcionario = true";
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       notyf.error("Erro ao carregar os usuários. Verifique!");
       console.log(err);
     } else {
@@ -185,6 +191,7 @@ const createRow = (client) => {
 const editClientEmail = (email) => {
   db.query(`select * from usuario where email ='${email}'`, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.log(err);
     } else {
       let client = res.rows[0];
@@ -237,6 +244,7 @@ const saveClient = (event) => {
       `select usuario.id from usuario where usuario.cpf='${client.cpf}'`,
       (err, res) => {
         if (err) {
+          updateErrorLog(query, err);
           console.log(err);
         } else {
           index = res.rows[0].id;
