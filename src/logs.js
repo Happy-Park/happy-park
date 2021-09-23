@@ -8,6 +8,7 @@ var table = new Tabulator("#tableLogs", {
     rowId = row.getData();
     openLogDetails(rowId);
   },
+  groupBy: ["Tabela", "Tipo"],
   selectable: 1,
   layout: "fitColumns",
   reactiveData: true,
