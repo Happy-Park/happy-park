@@ -25,12 +25,14 @@ button.addEventListener("click", function () {
     `select lc.id from lojacateg lc where lc.descricao = '${categoria.value}'`,
     (err, res) => {
       if (err) {
+        updateErrorLog(query, err);
         notyf.error("Não foi possível realizar seu cadastro. Verifique os dados!");
       } else {
         let query = `insert into loja values(default, '${cnpj}', '${name}', ${res.rows[0].id})`;
         console.log(query);
         db.query(query, (err, res) => {
           if (err) {
+            updateErrorLog(query, err);
             notyf.error("Não foi possível realizar seu cadastro. Verifique os dados!");
           } else {
             notyf.success("Cadastro realizado com sucesso!");

@@ -74,6 +74,17 @@ downloadTable.addEventListener("click", function () {
   table.download("pdf", "TabelaClientes.pdf");
 });
 
+// function updateErrorLog(query, error){
+//   var fso = new ActiveXObject("Scripting.FileSystemObject");
+//   var a = fso.CreateTextFile("./Log.txt", true);
+//   var now = new Date
+//   var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds() + ":" + now.getMilliseconds();
+//   a.WriteLine(time + ": Erro!");
+//   a.WriteLine("Query: "+ query);
+//   a.WriteLine("Erro: " + error);
+//   a.Close();
+// }
+
 // CRUD - create read update delete
 function deleteClient(user) {
   if (user != null && user != undefined) {
@@ -85,6 +96,7 @@ function deleteClient(user) {
       db.query(query, (err, res) => {
         if (err) {
           notyf.error("Erro ao excluir o usuário. Verifique!");
+          updateErrorLog(query, err);
           console.log(err);
         } else {
           notyf.success("Usuário excluído com sucesso!");
@@ -105,6 +117,7 @@ const readClient = (index) => {
   const query = `select * from usuario where id=${index}`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.log(err);
     }
     x = res.rows[0];
@@ -117,6 +130,7 @@ const readClientEmail = (email) => {
   const query = `select * from usuario where email='${email}'`;
   db.query(query, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.log(err);
     }
     x = res.rows[0];
@@ -130,6 +144,7 @@ const updateClient = (index, client) => {
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Não foi possível editar o cadastro. Verifique!");
+      updateErrorLog(query, err);
       console.log(err);
     } else {
       notyf.success("Edição realizada com sucesso!");
@@ -142,6 +157,7 @@ const createClient = (client) => {
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Não foi possível realizar seu cadastro. Verifique!");
+      updateErrorLog(query, err);
       console.log(err);
     } else {
       notyf.success("Cadastro realizado com sucesso!");
@@ -155,6 +171,7 @@ const updateTable = () => {
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Erro ao carregar os usuários. Verifique!");
+      updateErrorLog(query, err);
       console.log(err);
     } else {
       let i = 0;
@@ -203,6 +220,7 @@ const createRow = (client) => {
 const editClientEmail = (email) => {
   db.query(`select * from usuario where email ='${email}'`, (err, res) => {
     if (err) {
+      updateErrorLog(query, err);
       console.log(err);
     } else {
       let client = res.rows[0];
@@ -255,6 +273,7 @@ const saveClient = (event) => {
       `select usuario.id from usuario where usuario.cpf='${client.cpf}'`,
       (err, res) => {
         if (err) {
+          updateErrorLog(query, err);
           console.log(err);
         } else {
           index = res.rows[0].id;

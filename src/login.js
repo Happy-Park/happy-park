@@ -17,11 +17,13 @@ button.addEventListener("click", function () {
   db.query(query, (err, res) => {
     if (err) {
       console.error(err);
+      updateErrorLog(query, err);
     }
     password = crypto.createHash("sha256").update(password).digest("hex");
 
     if (res.rowCount === 0) {
       notyf.error("Usuário não encontrado");
+      updateErrorLog(query, err);
     } else {
       if (res.rows[0].email === user.value) {
         if (res.rows[0].senha === password) {

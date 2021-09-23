@@ -24,4 +24,17 @@ function query(query) {
   });
 }
 
-module.exports = {client, query};
+function updateErrorLog(query, error){
+  var fso = CreateObject("Scripting.FileSystemObject");  
+  var a = fso.CreateTextFile("./Log.txt", true);
+  var now = new Date
+  var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds() + ":" + now.getMilliseconds();
+  a.WriteLine(time + ": Erro!");
+  a.WriteLine("Query: "+ query);
+  a.WriteLine("Erro: " + error);
+  a.WriteLine("");
+  a.Close();
+}
+
+module.exports = {client, query, updateErrorLog};
+
