@@ -4,6 +4,7 @@ const client = require("../src/postgres");
 const query = "select lojacateg.descricao from lojacateg";
 const categBox = document.getElementById("category");
 
+const updateErrorLog = require('../src/postgres').updateErrorLog
 client.query(query, (err, res) => {
   if (err) {
     console.error(err);

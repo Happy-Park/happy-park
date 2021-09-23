@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
+const updateErrorLog = require('../src/postgres').updateErrorLog
 const db = require("./postgres").client;
 db.connect()
 let window;
@@ -36,9 +37,11 @@ app.on("ready", function () {
   });
 
   window.on('ready-to-show', () => {
-    db.query("select * from set_logado(3)", (err, res) => {
+    let query = "select * from set_logado(3)"
+    db.query(query, (err, res) => {
       if (err) {
         console.log(err);
+        updateErrorLog(query, err)
         app.quit()
       } else {
       }
@@ -46,9 +49,12 @@ app.on("ready", function () {
   })
 
   window.on('closed', (e) => {
-      db.query("select * from set_logado(3)", (err, res) => {
+    
+    let query = "select * from set_logado(3)"
+      db.query(query, (err, res) => {
         if (err) {
           console.log(err);
+          updateErrorLog(query, err)
           e.preventDefault()
         } else {
           e.defaultPrevented = false

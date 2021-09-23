@@ -1,5 +1,6 @@
 const db = require("../src/postgres").client;
 db.connect()
+const updateErrorLog = require('../src/postgres').updateErrorLog
 window.jsPDF = window.jspdf.jsPDF;
 const downloadTable = document.getElementById("downloadTable");
 let rowId;

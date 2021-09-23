@@ -1,5 +1,6 @@
 const db = require("../src/postgres");
 db.connect()
+const updateErrorLog = require('../src/postgres').updateErrorLog
 window.jsPDF = window.jspdf.jsPDF;
 let currentAtracaoSelected = [2];
 var table = new Tabulator("#tableAtracao", {

@@ -1,5 +1,6 @@
 const db = require("../src/postgres");
 const Cleave = require("cleave.js");
+const updateErrorLog = require('../src/postgres').updateErrorLog
 const button = document.getElementById("register-btn");
 const notyf = new Notyf({
   position: {

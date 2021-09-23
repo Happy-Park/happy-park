@@ -1,8 +1,5 @@
 require("dotenv").config();
 const axios = require('axios').default;
-const client = require("../src/postgres").client;
-client.connect();
-const ufs = "select * from estados";
 const ufBox = document.getElementById("uf");
 const citiesBox = document.getElementById("city");
 let arr = [];

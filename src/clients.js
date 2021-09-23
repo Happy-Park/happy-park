@@ -1,4 +1,5 @@
 const db = require("../src/postgres");
+const updateErrorLog = require('../src/postgres').updateErrorLog
 const tableFunctions = require('../src/tableFunctions')
 const crypto = require("crypto");
 const Cleave = require("cleave.js");
