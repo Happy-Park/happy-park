@@ -35,6 +35,16 @@ app.on("ready", function () {
     }, 3000);
   });
 
+  window.on('ready-to-show', () => {
+    db.query("select * from set_logado(3)", (err, res) => {
+      if (err) {
+        console.log(err);
+        app.quit()
+      } else {
+      }
+    });
+  })
+
   window.on('closed', (e) => {
       db.query("select * from set_logado(3)", (err, res) => {
         if (err) {
