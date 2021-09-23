@@ -1,7 +1,6 @@
 const db = require("../src/postgres");
 db.connect()
-const crypto = require("crypto");
-const Cleave = require("cleave.js");
+const updateErrorLog = require('../src/postgres').updateErrorLog
 window.jsPDF = window.jspdf.jsPDF;
 const downloadTable = document.getElementById("downloadTable");
 let currentAtracaoSelected = [3];

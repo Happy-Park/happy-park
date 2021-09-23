@@ -4,6 +4,7 @@ const tableFunctions = require('../src/tableFunctions')
 const crypto = require("crypto");
 const Cleave = require("cleave.js");
 const { getEnvironmentData } = require("worker_threads");
+const updateErrorLog = require('../src/postgres').updateErrorLog
 window.jsPDF = window.jspdf.jsPDF;
 require("cleave.js/dist/addons/cleave-phone.br");
 require("cleave.js/src/addons/phone-type-formatter.br");

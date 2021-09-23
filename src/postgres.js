@@ -1,6 +1,6 @@
 "use strict";
 require("dotenv/config");
-
+const fs = require('fs')
 const { Client } = require("pg");
 
 const client = new Client({
@@ -25,15 +25,15 @@ function query(query) {
 }
 
 function updateErrorLog(query, error){
-  var fso = CreateObject("Scripting.FileSystemObject");  
-  var a = fso.CreateTextFile("./Log.txt", true);
-  var now = new Date
+  var now = new Date()
+  let stream = fs.createWriteStream(`./Log(${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}).txt`)
+  stream.once('open', function(){
   var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds() + ":" + now.getMilliseconds();
-  a.WriteLine(time + ": Erro!");
-  a.WriteLine("Query: "+ query);
-  a.WriteLine("Erro: " + error);
-  a.WriteLine("");
-  a.Close();
+  stream.write(time + ": Erro!"+ '\n');
+  stream.write("Query: "+ query+'\n');
+  stream.write("Erro: " + error+'\n');
+  stream.end()
+  })
 }
 
 module.exports = {client, query, updateErrorLog};
