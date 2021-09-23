@@ -14,7 +14,16 @@ const fillFields = (client) => {
     senha.value = client.senha;
     senha.disabled = true;
   };
-
-
+function close(id){
+  db.query(`select * from set_logado(${id})`, (err, res) => {
+    if (err) {
+      console.log(err);
+      e.preventDefault()
+    } else {
+      e.defaultPrevented = false
+      app.quit();
+    }
+  });
+}
 
 module.exports = {fillFields}
