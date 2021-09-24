@@ -1,4 +1,5 @@
 const db = require("../src/postgres").client;
+db.connect()
 const query = require("../src/postgres").insert;
 const tableFunctions = require('../src/tableFunctions')
 const crypto = require("crypto");
