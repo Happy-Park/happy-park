@@ -1,22 +1,71 @@
-body, html{
-    height: 100%;
-    width: 100%;
-    margin: 0;
- }
-
-img{
-    height: 50vh;
-    width: 100%;
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
+img {
+  height: 50vh;
+  width: 100%;
+}
+
+header {
+  background-color: rgb(82, 184, 224);
+  width: 100%;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  gap: 10%;
+  justify-content: space-evenly;
+}
+header button {
+  height: 70%;
+  border: 0;
+  background-color: white;
+  cursor: pointer;
+}
+
+header button:hover {
+  background-color: gray;
+}
+
+#user-account {
+  background-image: url("../assets/img/account-icon.png");
+  background-size: cover;
+  width: 2.5%;
+}
+
+.glide__track {
+  background-color: aquamarine;
+}
 .glide__arrow {
-    background-color: black !important;
-
+  background-color: black !important;
 }
 
-.glide__slide p{
+.glide__slide p {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  text-decoration: underline;
+}
+
+
+footer{
+    width: 100%;
+    background-color: beige;
     display: flex;
-    justify-content: center;
-    margin: 0;
-    text-decoration: underline;
+    justify-content: space-evenly;
+}
+
+#social-list{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+#social-list button{
+    border: 0;
+    background-color: rgb(218, 140, 85);
+    cursor: pointer;
 }
