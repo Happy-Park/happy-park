@@ -1,4 +1,5 @@
-const db = require("../src/postgres");
+const db = require("../src/postgres").client
+db.connect()
 const Cleave = require("cleave.js");
 require("cleave.js/dist/addons/cleave-phone.br");
 require("cleave.js/src/addons/phone-type-formatter.br");
