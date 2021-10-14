@@ -29,9 +29,13 @@ button.addEventListener("click", function () {
     } else {
       if (res.rows[0].email === user.value) {
         if (res.rows[0].senha === password) {
-          if (res.rows[0].funcionario === true) {
+          if (res.rows[0].admin === true) {
+            window.location.href = "../pages/home_admin.html";
+          } 
+          else if(res.rows[0].funcionario === true){
             window.location.href = "../pages/home.html";
-          } else {
+          }
+          else {
             window.location.href = "../pages/home_user.html";
           }
         } else {
