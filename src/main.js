@@ -14,7 +14,7 @@ app.on("ready", function () {
     thickFrame: false,
     title: "Happy Park",
     icon: "assets/img/atracoes.png",
-    titleBarStyle: "hidden",
+    //titleBarStyle: "hidden",
     show: false,
     // autoHideMenuBar: true, //Não mostrar a barra de menu
     webPreferences: {
