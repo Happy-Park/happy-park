@@ -15,7 +15,7 @@ const user = document.getElementById("username");
 
 button.addEventListener("click", function () {
   let password = document.getElementById("password").value;
-  const query = `select email, senha, funcionario from usuario where email='${user.value}'`;
+  const query = `select email, senha, funcionario, admin from usuario where email='${user.value}'`;
   db.query(query, (err, res) => {
     if (err) {
       console.error(err);
