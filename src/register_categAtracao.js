@@ -1,4 +1,4 @@
-const db = require("../src/postgres");
+const db = require("../src/postgres").client;
 db.connect()
 const updateErrorLog = require('../src/postgres').updateErrorLog
 window.jsPDF = window.jspdf.jsPDF;
@@ -120,15 +120,15 @@ const updateTable = () => {
   db.query(query, (err, res) => {
     if (err) {
       updateErrorLog(query, err);
-      notyf.error("Erro ao carregar os as atrações. Verifique!");
+      notyf.error("Erro ao carregar as atrações. Verifique!");
       console.log(err);
     } else {
       let i = 0;
       res.rows.forEach((element) => {
         tableData[i] = {
           ID: element.id,
-          Descricao: element.descricao,
-          Situacao: element.situacao,
+          Descrição: element.descricao,
+          Situação: element.situacao,
         };
         i++;
       });

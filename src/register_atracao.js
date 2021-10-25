@@ -1,16 +1,17 @@
-const db = require("../src/postgres");
-db.connect()
+const db = require("../src/postgres").client;
+db.connect();
 const updateErrorLog = require('../src/postgres').updateErrorLog
 window.jsPDF = window.jspdf.jsPDF;
 const downloadTable = document.getElementById("downloadTable");
-let currentAtracaoSelected = [3];
+let currentAtracaoSelected = [4];
 var table = new Tabulator("#tableAtracao", {
   rowClick: function (e,row) {
     //saves the client's name and email for the selected row
     currentAtracaoSelected[0] = row.getData().Nome;
     currentAtracaoSelected[1] = row.getData().Capacidade;
     currentAtracaoSelected[2] = row.getData().Categoria;
-    editAtracao(currentAtracaoSelected[0]);
+    currentAtracaoSelected[3] = row.getData().ID;
+    editAtracao(currentAtracaoSelected[3]);
   },
   selectable: 1,
   layout: "fitColumns",
@@ -66,7 +67,7 @@ function deleteAtracao(atracao) {
       `Deseja realmente excluir a atração '${atracao[1]}'?`
     );
     if (response) {
-      let query = `delete from atracao where nome='${atracao[0]}'`;
+      let query = `delete from atracao where descricao='${atracao[0]}'`;
       db.query(query, (err, res) => {
         if (err) {
           notyf.error("Erro ao excluir a atração. Verifique!");
@@ -101,7 +102,10 @@ const readAtracao = (index) => {
 
 
 const updateAtracao = (index, atracao) => {
-  const query = `UPDATE atracao SET nome = '${atracao.nome}',capacidade =${atracao.capacidade} WHERE id = ${index}`;
+  let descricao = document.getElementById("name").value;
+  let capacidade = document.getElementById("capacidade").value;
+  const query = `UPDATE atracao SET descricao = '${descricao}',capacidade =${capacidade} WHERE id = ${index}`;
+  console.log(query)
   db.query(query, (err, res) => {
     if (err) {
       notyf.error("Não foi possível editar o cadastro. Verifique!");
@@ -167,8 +171,8 @@ const fillFields = (atracao) => {
   document.getElementById("capacidade").value = atracao.capacidade;
 };
 
-const editAtracao = (descricao) => {
-  db.query(`select * from atracao where descricao ='${descricao}'`, (err, res) => {
+const editAtracao = (id) => {
+  db.query(`select * from atracao where id ='${id}'`, (err, res) => {
     if (err) {
       console.log(err);
       updateErrorLog(query, err);
@@ -199,10 +203,12 @@ const saveAtracao = (event) => {
     closeModal();
     novo = false;
   } else {
+    atracao = currentAtracaoSelected;
+    console.log(atracao)
     let index;
     db.query(
       // FAZER WHERE USANDO ID PARA PODER ALTERAR QUALQUER CAMPO
-      `select atracao.id from atracao where atracao.descricao='${atracao.nome}'`,
+      `select atracao.id from atracao where atracao.id='${atracao[3]}'`,
       (err, res) => {
         if (err) {
           console.log(err);
