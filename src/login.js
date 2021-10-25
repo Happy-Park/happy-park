@@ -31,12 +31,15 @@ button.addEventListener("click", function () {
         if (res.rows[0].senha === password) {
           if (res.rows[0].admin === true) {
             window.location.href = "../pages/home_admin.html";
+            sessionStorage.setItem("user", 'admin');
           } 
           else if(res.rows[0].funcionario === true){
             window.location.href = "../pages/home.html";
+            sessionStorage.setItem("user", 'worker');
           }
           else {
             window.location.href = "../pages/home_user.html";
+            sessionStorage.setItem("user", 'client');
           }
         } else {
           notyf.error("Senha incorreta!");
