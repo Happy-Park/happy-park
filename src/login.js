@@ -1,4 +1,3 @@
-sessionStorage.setItem("user", null);
 const crypto = require("crypto");
 const db = require("../src/postgres").client;
 const updateErrorLog = require('../src/postgres').updateErrorLog
@@ -35,14 +34,13 @@ const user = document.getElementById("username");
 
 button.addEventListener("click", function () {
   let password = document.getElementById("password").value;
-  const query = `select email, senha, funcionario, admin from usuario where email='${user.value}'`;
+  const query = `select id, email, senha, funcionario, admin from usuario where email='${user.value}'`;
   db.query(query, (err, res) => {
     if (err) {
       console.error(err);
       updateErrorLog(query, err);
     }
     password = crypto.createHash("sha256").update(password).digest("hex");
-
     if (res.rowCount === 0) {
       notyf.error("Usuário não encontrado");
       updateErrorLog(query, err);
@@ -51,15 +49,25 @@ button.addEventListener("click", function () {
         if (res.rows[0].senha === password) {
           if (res.rows[0].admin === true) {
             window.location.href = "../pages/home_admin.html";
-            sessionStorage.setItem("user", 'admin');
+            let user = {
+              "user": 'admin',
+              "ip": ip,
+              "id": res.rows[0].id
+            }
+            sessionStorage.setItem('user', JSON.stringify(user));
           } 
           else if(res.rows[0].funcionario === true){
             window.location.href = "../pages/home.html";
-            sessionStorage.setItem("user", 'worker');
+            let user = {
+              "user": 'worker',
+              "ip": ip,
+              "id": res.rows[0].id
+            }
+            sessionStorage.setItem("user", JSON.stringify(user));
           }
           else {
             window.location.href = "../pages/home_user.html";
-            sessionStorage.setItem("user", 'client');
+            session.set("user", 'client');
           }
         } else {
           notyf.error("Senha incorreta!");
