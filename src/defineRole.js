@@ -1,9 +1,8 @@
-const user = sessionStorage.getItem("user");
+user = JSON.parse(sessionStorage.user);
 const ul = menu.querySelector("ul");
-
+const currentPage = location.pathname.split("/").slice(-1)[0];
 if (user === "admin") {
   //get current page starting from /pages
-  const currentPage = location.pathname.split("/").slice(-1)[0];
   if (currentPage === "home_admin.html") {
     ul.insertAdjacentElement(
       "afterbegin",
