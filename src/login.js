@@ -1,7 +1,27 @@
+sessionStorage.setItem("user", null);
 const crypto = require("crypto");
 const db = require("../src/postgres").client;
 const updateErrorLog = require('../src/postgres').updateErrorLog
-
+//get pc's ip address
+let {networkInterfaces} = require('os');
+const nets = networkInterfaces();
+let results = Object.create(null); 
+for (const name of Object.keys(nets)) {
+    for (const net of nets[name]) {
+        if (net.family === 'IPv4' && !net.internal) {
+            if (!results[name]) {
+                results[name] = [];
+            }
+            results[name].push(net.address);
+        }
+    }
+}
+//iterate through the results and find the first one
+let ip = '';
+for (const name of Object.keys(results)) {
+    ip = results[name][0];
+}
+console.log(ip)
 
 const notyf = new Notyf({
   position: {
