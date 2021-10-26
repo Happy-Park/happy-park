@@ -7,6 +7,7 @@ let apiKey = process.env.API_KEY_FORECAST;
 let url;
 let request = new XMLHttpRequest();
 
+
 //Atualiza previsão do tempo
 wheater.innerText = "Temperatura em ";
 // forecast.innerText = "Previsão para amanhã:";
