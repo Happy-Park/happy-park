@@ -1,3 +1,4 @@
+sessionStorage.clear();
 const crypto = require("crypto");
 const db = require("../src/postgres").client;
 const updateErrorLog = require('../src/postgres').updateErrorLog

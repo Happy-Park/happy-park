@@ -1,4 +1,5 @@
-const db = require("../src/postgres");
+const db = require("../src/postgres").client
+db.connect()
 const updateErrorLog = require('../src/postgres').updateErrorLog
 const tableFunctions = require('../src/tableFunctions')
 const crypto = require("crypto");
