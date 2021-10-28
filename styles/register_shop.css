@@ -17,6 +17,40 @@ body {
   background-size: cover;
 }
 
+#menu {
+  text-align: center;
+  height: 100%;
+  padding: 0%;
+  margin: 0%;
+  background-color: white;
+  width: 7%;
+  font-size: 75%;
+}
+
+#menu ul{
+  margin: 0%;
+  padding: 2vw 0vw 2vw 0vw;
+}
+
+#menu li{
+  list-style: none;
+  padding: 3vh 0 0 0;
+  text-decoration: none;
+}
+
+#menu li a{
+  text-decoration: none;
+}
+
+#menu li p{
+  text-decoration: none;
+  margin: 0;
+}
+
+#menu li a img{
+  width: 4vw;
+}
+
 .flex-box {
   display: flex;
   align-items: center;
@@ -50,18 +84,6 @@ body {
   color: white;
 }
 
-#create-account {
-  background-color: transparent;
-  border-radius: 15px;
-  border: 2px solid #ffffff;
-  display: inline-block;
-  cursor: pointer;
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 12px 16px;
-  text-decoration: none;
-}
 
 #half2 {
   margin: 0;
