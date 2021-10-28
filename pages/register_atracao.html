@@ -44,7 +44,16 @@
               <input type="text" id="name" data-index="new" class="modal-field" placeholder="Nome da atração" required>
               <input class="modal-field" id="capacidade" type="number" placeholder="Capacidade"/>
               <select class="modal-field" type="checkbox" id="atracaoCateg"></select>
-              <!-- add pra fazer upload img -->
+
+              <form class="upload-imagem">
+                <input type="file" class="upload" required>
+                <button id="atualizar">Alterar Imagem</button>
+              </form>
+              
+              <div>
+                <img class="imagem" src="http://via.placeholder.com/1920x1080" alt="Sua imagem" width="426" height="240">
+              </div>
+
           </form>
           <footer class="modal-footer">
             <button id="deletar">Deletar</button>
