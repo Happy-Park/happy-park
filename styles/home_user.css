@@ -32,13 +32,20 @@ header {
 }
 header button {
   height: 70%;
-  border: 0;
+  border: 5px;
   background-color: white;
   cursor: pointer;
 }
 
+header a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.2em;
+}
+
 header button:hover {
-  background-color: gray;
+  background-color: whitesmoke;
+  font-size: 1em;
 }
 
 #user-account {
@@ -61,15 +68,25 @@ header button:hover {
   padding: 5px;
   width: fit-content;
   height: fit-content;
+  border: white ;
 }
 
 .glide__slide p {
-  display: flex;
-  justify-content: center;
+  font-size: 1.5em;
+  color: black;
+  text-align: center;
   margin: 0;
-  text-decoration: underline;
+  text-decoration: none !important;
 }
 
+.glide__slide {
+  justify-content: center;
+  align-content: center;
+  display: inline;
+  margin: 0;
+  text-decoration: underline;
+  background-color: white;
+}
 
 footer{
     width: 100%;
@@ -80,8 +97,32 @@ footer{
     justify-content: space-evenly;
 }
 
+#horarios {
+  background-color: white;
+  align-items: center;
+  justify-content: center;  
+  margin: 0;
+  padding: 0;
+}
+
+#horarios h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#horarios p{
+  margin: 0;
+  font-size: 0.95em;
+  text-align: center;
+}
+
+#social {
+  width: fit-content;
+}
+
 #social h2 {
   margin-bottom: 5px;
+  text-align: center;
 }
 
 #social-list{
@@ -90,6 +131,7 @@ footer{
     flex-direction: row;
     padding: 0;
     margin-top: 0;
+    justify-content: center;
 }
 
 #social-list li {
@@ -97,5 +139,12 @@ footer{
 }
 
 #social-list li img{
-  height: fit-content;
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+}
+
+#social-list li img:hover {
+  height: 27px;
+  width: 27px;
 }
