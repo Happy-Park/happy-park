@@ -14,14 +14,21 @@
       rel="stylesheet"
       href="../node_modules/@glidejs/glide/dist/css/glide.theme.min.css"
     />
+    <!-- Mapa -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
   </head>
   <body>
     <header>
       <button id="buy-ticket"><a href="../pages/buy_ticket.html">Comprar Ingressos</a></button>
-      <button>sem ideia</button>
-      <button>sem ideia</button>
-      <button>sem ideia</button>
-      <button id="user-account" title="Sua conta"></button>
+      <button><a href="#">Em breve!</a></button>
+      <button><a href="#">Em breve!</a></button>
+      <button><a href="#">Em breve!</a></button>
+      <button id="user-account" title="Sua conta" style="text-decoration:none"></button>
     </header>
 
     <div class="glide">
@@ -33,25 +40,30 @@
         </ul>
       </div>
       <div class="glide__arrows" data-glide-el="controls">
-        <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><p>Anterior</p></button>
-        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><p>Próximo</p></button>
+        <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><img src="../assets/img/seta-esquerda.png" alt="retroceder"></button>
+        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><img src="../assets/img/seta-direita.png" alt="avançar"></button>
       </div>
     </div>
 
 
     <footer id="footer">
       <div id="location">
-        <h1>Localização do parque</h1>
+        <h2>Localização do parque</h2>
+        <div id="map"></div>
       </div>
       <div id="horarios">
-        <h1>Nossos horários</h1>
+        <h2>Nossos horários</h2>
+        <p>Bilheterias: das 8h às 17h</p>
+        <p>Parques: das 8h30 às 19h</p>
       </div>
       <div id="social">
-        <h1>Redes Sociais</h1>
+        <h2>Redes Sociais</h2>
         <ul id="social-list">
-          <li><button>Instagram</button></li>
-          <li><button>Twitter</button></li>
-          <li><button>Facebook</button></li>
+          <li><img src="../assets/img/instagram.png" alt="instagram"></li>
+          <li><img src="../assets/img/facebook.png" alt="facebook"></li>
+          <li><img src="../assets/img/twitter.png" alt="twitter"></li>
+          <li><img src="../assets/img/whatsapp.png" alt="whatsapp"></li>
+          <li><img src="../assets/img/youtube.png" alt="youtube"></li>
         </ul>
       </div>
     </footer>

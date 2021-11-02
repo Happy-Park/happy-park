@@ -8,15 +8,15 @@ body {
    background-color: white;
    font-family: 'Roboto', sans-serif;
    display: inline-flex;
-  background:
-     /* top, transparent black, faked with gradient */ 
-     linear-gradient(
-       rgba(0, 0, 0, 0.2), 
-       rgba(0, 0, 0, 0.3)
-     ),
-     /* bottom, image */
-     url(../assets/background_main.jpg);
-   background-size: cover;
+   background:
+      /* top, transparent black, faked with gradient */ 
+      linear-gradient(
+         rgba(0, 0, 0, 0.2), 
+         rgba(0, 0, 0, 0.3)
+      ),
+      /* bottom, image */
+      url(../assets/background_main.jpg);
+      background-size: cover;
  }
 
 #menu {
