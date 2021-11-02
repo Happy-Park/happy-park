@@ -2,6 +2,9 @@ const db = require("../src/postgres").client;
 db.connect();
 const updateErrorLog = require('../src/postgres').updateErrorLog
 window.jsPDF = window.jspdf.jsPDF;
+var preview = document.getElementById('image'); //selects the query named img
+var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+var reader  = new FileReader();
 const downloadTable = document.getElementById("downloadTable");
 let currentAtracaoSelected = [4];
 var table = new Tabulator("#tableAtracao", {
@@ -104,7 +107,7 @@ const readAtracao = (index) => {
 const updateAtracao = (index, atracao) => {
   let descricao = document.getElementById("name").value;
   let capacidade = document.getElementById("capacidade").value;
-  const query = `UPDATE atracao SET descricao = '${descricao}',capacidade =${capacidade} WHERE id = ${index}`;
+  const query = `UPDATE atracao SET descricao = '${descricao}',capacidade =${capacidade}, imagem = ${file} WHERE id = ${index}`;
   console.log(query)
   db.query(query, (err, res) => {
     if (err) {
@@ -125,7 +128,7 @@ if(err){
 }
 else{
  let id = res.rows[0].id
-  const query = `insert into atracao values(default,'${atracao.nome}',${atracao.capacidade}, ${id})`;
+  const query = `insert into atracao values(default,'${atracao.nome}',${atracao.capacidade}, ${id}, ${file})`;
   db.query(query, (err, res) => {
     if (err) {
       updateErrorLog(query, err);
@@ -157,7 +160,8 @@ const updateTable = () => {
           ID: element.id,
           Nome: element.descricao,
           Capacidade: element.capacidade,
-          Categoria: element.atracaocateg
+          Categoria: element.atracaocateg,
+          Imagem: file
         };
         i++;
       });
@@ -169,6 +173,9 @@ const updateTable = () => {
 const fillFields = (atracao) => {
   document.getElementById("name").value = atracao.descricao;
   document.getElementById("capacidade").value = atracao.capacidade;
+  if (file) {
+    reader.readAsDataURL(atracao.imagem);
+  }
 };
 
 const editAtracao = (id) => {
@@ -260,17 +267,17 @@ const closeModal = () => {
   novo = false;
 };
 
-const previewFile = () => {
-  var preview = document.querySelector('img'); //selects the query named img
-  var file    = document.querySelector('input[type=file]').files[0]; //sames as here
-  var reader  = new FileReader();
+const previewFile = () => { 
+  preview = document.getElementById('image'); //selects the query named img
+  file    = document.querySelector('input[type=file]').files[0]; //sames as here
   
   reader.onloadend = function (load) {
     preview.src = load.target.result;
   }
 
   if (file) {
-      reader.readAsDataURL(file); //reads the data as a URL
+    console.log(file)
+    reader.readAsDataURL(file); //reads the data as a URL
   } else {
       preview.src = "";
   }

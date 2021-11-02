@@ -26,7 +26,7 @@ function query(query) {
 
 function updateErrorLog(query, error){
   var now = new Date()
-  let stream = fs.createWriteStream(`./Log(${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}).txt`)
+  let stream = fs.createWriteStream(`./Log(${now.getHours()};${now.getMinutes()};${now.getSeconds()}).txt`)
   stream.once('open', function(){
   var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds() + ":" + now.getMilliseconds();
   stream.write(time + ": Erro!"+ '\n');
