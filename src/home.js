@@ -1,4 +1,5 @@
 require("dotenv/config");
+window.ApexCharts = require('apexcharts');
 let wheater = document.getElementById("weather");
 const db = require("../src/postgres").client;
 db.connect()
@@ -75,9 +76,7 @@ let user = JSON.parse(sessionStorage.getItem('user'));
 console.log(user.id);
 let query = `select * from set_logado(${user.id})`;
 window.addEventListener('load', function(){
-  console.log('aqui')
   db.query(query, (err, res) => {
-    console.log('aquii')
     if (err) {
       console.log(err);
       updateErrorLog(query, err);
@@ -89,7 +88,6 @@ window.addEventListener('load', function(){
 });
 
 window.addEventListener('beforeunload' ,function() {
-  console.log('aqui')
   db.query(query, (err, res) => {
     if (err) {
       console.log(err);
@@ -100,3 +98,43 @@ window.addEventListener('beforeunload' ,function() {
     }
   });
 });
+
+function carregaGraficoClientesUF() {
+  query = `select uf, count(uf) as qtde from usuario where admin = false and funcionario = false group by uf`;
+  db.query(query, (err, res) => {
+    if (err) {
+      console.log(err);
+      updateErrorLog(query, err);
+      app.quit();
+    } else {
+      let data = [];
+      let labels = [];
+      res.rows.forEach((row) => {
+        data.push(parseInt(row.qtde));
+        labels.push(row.uf);
+      });
+      var options = {
+        series: data,
+        labels: labels,
+        chart: {
+        type: 'donut',
+      },
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+      };
+      var chart = new ApexCharts(document.querySelector("#chart-clientes"), options);
+      chart.render();
+    }
+  });
+}
+
+carregaGraficoClientesUF() 
