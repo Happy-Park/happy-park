@@ -3,6 +3,17 @@ html {
   height: 100%;
   width: 100%;
   margin: 0;
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+  background:
+    /* top, transparent black, faked with gradient */ 
+    linear-gradient(
+        rgba(0, 0, 0, 0.2), 
+        rgba(0, 0, 0, 0.7)
+    ),
+    /* bottom, image */
+    url(../assets/background_main.jpg);
+    background-size: cover;
 }
 
 img {
@@ -11,7 +22,7 @@ img {
 }
 
 header {
-  background-color: rgb(82, 184, 224);
+  background-color: white;
   width: 100%;
   height: 6vh;
   display: flex;
@@ -37,10 +48,19 @@ header button:hover {
 }
 
 .glide__track {
-  background-color: aquamarine;
+  
 }
+
 .glide__arrow {
-  background-color: black !important;
+  border-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.glide__arrow img{
+  padding: 5px;
+  width: fit-content;
+  height: fit-content;
 }
 
 .glide__slide p {
@@ -53,19 +73,29 @@ header button:hover {
 
 footer{
     width: 100%;
-    background-color: beige;
+    bottom: 0;
+    position: fixed;
+    background-color: white;
     display: flex;
     justify-content: space-evenly;
+}
+
+#social h2 {
+  margin-bottom: 5px;
 }
 
 #social-list{
     list-style-type: none;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 0;
+    margin-top: 0;
 }
-#social-list button{
-    border: 0;
-    background-color: rgb(218, 140, 85);
-    cursor: pointer;
+
+#social-list li {
+  padding: 5px;
+}
+
+#social-list li img{
+  height: fit-content;
 }
