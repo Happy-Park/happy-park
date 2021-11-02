@@ -148,3 +148,13 @@ footer{
   height: 27px;
   width: 27px;
 }
+
+#location h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#map {
+  height: 150px; 
+  width: 300px;
+}
