@@ -77,3 +77,9 @@ button.addEventListener("click", function () {
     }
   });
 });
+
+document.getElementById('password').addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    button.click();
+  }
+});

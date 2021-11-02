@@ -7,3 +7,5 @@ HappyPark-macos-x64/
 .vscode/*
 .vscode
 .vscode/settings.json
+
+*.txt
