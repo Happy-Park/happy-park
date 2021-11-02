@@ -44,7 +44,7 @@ header a {
 }
 
 header button:hover {
-  background-color: whitesmoke;
+  border-radius: 5px;
   font-size: 1em;
 }
 
@@ -52,10 +52,6 @@ header button:hover {
   background-image: url("../assets/img/account-icon.png");
   background-size: cover;
   width: 2.5%;
-}
-
-.glide__track {
-  
 }
 
 .glide__arrow {
@@ -157,4 +153,5 @@ footer{
 #map {
   height: 150px; 
   width: 300px;
+  margin-bottom: 5px;
 }
