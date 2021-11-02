@@ -45,26 +45,19 @@
               <input class="modal-field" id="capacidade" type="number" placeholder="Capacidade"/>
               <select class="modal-field" type="checkbox" id="atracaoCateg"></select>
 
-              <form class="upload-imagem">
-                <input type="file" class="upload" required>
-                <button id="atualizar">Alterar Imagem</button>
-              </form>
-              
-              <div>
-                <img class="imagem" src="http://via.placeholder.com/1920x1080" alt="Sua imagem" width="426" height="240">
-              </div>
-
+              <input type="file" onchange="previewFile()">
+              <img src="http://via.placeholder.com/200x200" height="200">
           </form>
           <footer class="modal-footer">
             <button id="deletar">Deletar</button>
-              <button id="salvar" class="button green">Salvar</button>
-              <button id="cancelar" class="button blue">Cancelar</button>
+            <button id="salvar" class="button green">Salvar</button>
+            <button id="cancelar" class="button blue">Cancelar</button>
           </footer>
       </div>
     </div>
 
     <script src="../node_modules/jspdf/dist/jspdf.umd.min.js"></script>
-<script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
+    <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
     <script type="text/javascript" src="../node_modules/tabulator-tables/dist/js/tabulator.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script src="../node_modules/cleave.js/dist/cleave.min.js"></script>

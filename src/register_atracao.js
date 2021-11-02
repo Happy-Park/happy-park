@@ -4,11 +4,6 @@ const updateErrorLog = require('../src/postgres').updateErrorLog
 window.jsPDF = window.jspdf.jsPDF;
 const downloadTable = document.getElementById("downloadTable");
 let currentAtracaoSelected = [4];
-const leitorDeArquivos = new FileReader(),
-formulario = document.getElementById('.upload-imagem'),
-previaDaImagem = document.getElementById('.imagem'),
-inputArquivo = document.getElementById('.upload'),
-btnAtualiza = document.getElementById('.atualizar');
 var table = new Tabulator("#tableAtracao", {
   rowClick: function (e,row) {
     //saves the client's name and email for the selected row
@@ -265,11 +260,25 @@ const closeModal = () => {
   novo = false;
 };
 
+const previewFile = () => {
+  var preview = document.querySelector('img'); //selects the query named img
+  var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+  var reader  = new FileReader();
+  
+  reader.onloadend = function (load) {
+    preview.src = load.target.result;
+  }
+
+  if (file) {
+      reader.readAsDataURL(file); //reads the data as a URL
+  } else {
+      preview.src = "";
+  }
+}
+
 updateTable();
 
-document
-  .getElementById("cadastrarAtracao")
-  .addEventListener("click", cadastrarAtracao);
+document.getElementById("cadastrarAtracao").addEventListener("click", cadastrarAtracao);
 
 document.getElementById("modalClose").addEventListener("click", closeModal);
 
@@ -280,33 +289,3 @@ document.getElementById("deletar").addEventListener("click", toDeleteAtracao);
 document.getElementById("cancelar").addEventListener("click", closeModal);
 
 
-function leEAtualiza(){
-    //pega o arquivo enviado e guarda nesta variavel
-    let imagemEnviada = inputArquivo.files[0];
-
-    //Usa a função do objeto leitor de arquivos, que lê o arquivo, e consegue reaproveita-lo para usar o arquivo como uma URL
-    leitorDeArquivos.readAsDataURL(imagemEnviada);
-    
-    //Após leitura da imagem (evento load), a função de callback define o valor do src da imagem de prévia com o valor do resultado da leitura do leitor de arquivos
-    leitorDeArquivos.addEventListener('loadend', function(load){
-        
-        //veja no console o que o resultado do leitor de arquivos :)
-        console.log(load.target.result);
-        //define o caminho da imagem com o caminho criado pelo leitor de arquivos
-        previaDaImagem.src = load.target.result
-    })
-}
-
-// //Quando o formulário for enviado:
-// formulario.addEventListener('submit', function(submit){
-//   //impede o recarregamento da página
-//   submit.preventDefault();
-
-//   leEAtualiza();
-// })
-
-//Ou quando clica no boão atualizar
-btnAtualiza.addEventListener('click', function(){
-  console.log("a");  
-  leEAtualiza();
-})
