@@ -164,6 +164,7 @@ const saveClient = (event) => {
     valor: document.getElementById("valor").value,
   };
   if (novo == true) {
+      document.getElementById("id").hidden = true;
     createClient(ingresso);
     updateTable();
     closeModal();

@@ -10,34 +10,21 @@
 <body>
 
     <div id="container">
+    <!---
     <div id="date">
         <h1>Escolher data</h1>
         <input id="datepicker">
     </div>
+    <!-->
     <div id="select-ticket">
         <h1>Escolher ingresso</h1>
-        <div class="ticket-type" >
-            <h2>Nome</h2>
-            <p>Preço</p>
-            <p>Descrição</p>
-            <input class="checkbox" type="checkbox">
-        </div>
-        <div class="ticket-type" >
-            <h2>Nome</h2>
-            <p>Preço</p>
-            <p>Descrição</p>
-            <input class="checkbox" type="checkbox">
-        </div>
-        <div class="ticket-type" >
-            <h2>Nome</h2>
-            <p>Preço</p>
-            <p>Descrição</p>
-            <input class="checkbox" type="checkbox">
-        </div>
+        <input type="number" id="quantidade">
     </div>
+
+    <button id="finish-purchase">Continuar Compra</button>
 </div>
 
-    <script type="module" src="../src/buy_ticket.js"></script>
+    <script src="../src/buy_ticket.js"></script>
     
 </body>
 </html>
