@@ -33,7 +33,7 @@ button.addEventListener("click", () => {
     total += parseFloat(ticket.valor);
   });
   let query = `insert into vendingresso values(default,'${date}', '${picker.getEndDate().format('YYYY-MM-DD')}', ${total}. )`
-    db.query(
+    db.query()
 });
 
 // picker.on("selected", (date1, date2) => {
