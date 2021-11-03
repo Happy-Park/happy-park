@@ -26,6 +26,9 @@ function createTicketCard(ticket) {
   <span>Preço: R$</span>
 <span id="preco">${ticket.valor}</span>
 <br>
+<span>Quantidade:</span>
+<input type="number" id="quantidade">
+<br>
 <input class="checkbox" type="checkbox">`;
   tickets.appendChild(card);
 }
@@ -58,14 +61,15 @@ confirmButton.addEventListener("click", () => {
       id: ticket.id,
       descricao: ticket.querySelector("#descricao").innerText,
       valor: ticket.querySelector("#preco").innerText,
+      quantidade: ticket.querySelector("#quantidade").value,
     };
     sessionTickets.push(ticketTemp);
   });
   sessionStorage.setItem("tickets", JSON.stringify(sessionTickets));
-  if(sessionTickets.length > 0){
+  console.log(sessionStorage.getItem("tickets"));
+  if (sessionTickets.length > 0) {
     window.location.href = "../pages/checkout.html";
-  }
-  else{
+  } else {
     alert("Selecione um ingresso!");
   }
 });

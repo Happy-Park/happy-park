@@ -68,7 +68,12 @@ button.addEventListener("click", function () {
           }
           else {
             window.location.href = "../pages/home_user.html";
-            session.set("user", 'client');
+            let user = {
+              "user": 'worker',
+              "ip": ip,
+              "id": res.rows[0].id
+            }
+            sessionStorage.setItem("user", JSON.stringify(user));
           }
         } else {
           notyf.error("Senha incorreta!");
