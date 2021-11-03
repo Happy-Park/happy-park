@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../node_modules/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
-    <link rel="stylesheet" href="../styles/register_atracao.css" />
-    <title>Cadastro de Categoria de atrações</title>
+    <link rel="stylesheet" href="../styles/registerWorker.css" />
+    <title>Cadastrar um Ingresso</title>
 
     <!-- Import Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,15 +19,17 @@
         <li><a href="./register_ticket.html"><img src="../assets/img/product.png" alt="Ingressos" title="Ingressos"><p>Ingressos</p></a></li>
         <li><a href="./tableLogs.html"><img src="../assets/img/pencil.png"  alt="Auditoria" title="Auditoria"><p>Auditoria</p></a></li>
         <li><a href="../pages/clients.html"><img src="../assets/img/client.png" alt="Cliente" title="Cliente"><p>Clientes</p></a></li>
-        <li><a href="../pages/registerWorker.html"><img src="../assets/img/workers.png" alt="Funcionário" title="Funcionário"><p>Funcionários</p></a></li>
-        <li><a href="../pages/register_shop.html"><img src="../assets/img/shop.png" alt="Loja" title="Loja"><p>Lojas</p></a></li>
-        <li><a href="../pages/register_atracao.html"><img src="../assets/img/atracoes.png" alt="Atração" title="Atração"><p>Atrações</p></a></li>
-    </div> 
+        <li><a href="./registerWorker.html"><img src="../assets/img/workers.png" alt="Funcionário" title="Funcionário"><p>Funcionários</p></a></li>
+        <li><a href="./register_shop.html"><img src="../assets/img/shop.png" alt="Loja" title="Loja"><p>Lojas</p></a></li>
+        <li><a href="./register_atracao.html"><img src="../assets/img/atracoes.png" alt="Atração" title="Atração"><p>Atrações</p></a></li>
+      </ul>
+      </div> 
     <div id="center">
       <div id="principal">
-        <h2>Cadastro de categoria de atração</h2>
-        <button id="cadastrarAtracao"> Cadastrar categoria</button>
-        <table id="tableAtracao" class="records">
+        <h2>Cadastro de Ingressos</h2>
+        <button id="cadastrarCliente"> Cadastrar Ingresso</button>
+        <button id="downloadTable">Download Tabela PDF</button>
+        <table id="tableClient" class="records">
       </table>
       </div>
     </div>
@@ -35,13 +37,13 @@
     <div class="modal" id="modal">
       <div class="modal-content">
           <header class="modal-header">
-              <h2>Nova categoria Atração</h2>
+              <h2>Novo Ingresso</h2>
               <span class="modal-close" id="modalClose">&#10006;</span>
           </header>
           <form id="form" class="modal-form">
-              <input id="descricao" data-index="new" class="modal-field" placeholder="Descrição" required>
-              <input class="modal-field" id="situacao" placeholder="Situação" minlength="1" maxlength="1"/>
-              <!-- add pra fazer upload img -->
+            <input type="text" id="id" data-index="new" class="modal-field" placeholder="ID" readonly>
+              <input type="text" id="name" data-index="new" class="modal-field" placeholder="Descrição do Ingresso" required>
+              <input type="Valor" id="valor" class="modal-field" placeholder="Valor do ingresso" required>                          
           </form>
           <footer class="modal-footer">
             <button id="deletar">Deletar</button>
@@ -55,8 +57,7 @@
 <script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
     <script type="text/javascript" src="../node_modules/tabulator-tables/dist/js/tabulator.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <script src="../node_modules/cleave.js/dist/cleave.min.js"></script>
-    <script src="../node_modules/cleave.js/dist/addons/cleave-phone.br.js"></script>
-    <script src="../src/register_categAtracao.js"></script>  
+    <script src="../src/register_ticket.js"></script>  
+    <script src="../src/defineRole.js"></script>
   </body>
 </html>
