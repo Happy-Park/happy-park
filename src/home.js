@@ -137,4 +137,58 @@ function carregaGraficoClientesUF() {
   });
 }
 
-carregaGraficoClientesUF() 
+function carregaGraficoIngressos() {
+  query = `select CAST(DATA as DATE) as DATA, SUM(QUANTIDADE) as qtde from VENDINGRESSO group by CAST(DATA as DATE) order by DATA DESC limit 50`;
+  db.query(query, (err, res) => {
+    if (err) {
+      console.log(err);
+      updateErrorLog(query, err);
+      app.quit();
+    } else {
+      let data = [];
+      let labels = [];
+      res.rows.forEach((row) => {
+        data.push(parseInt(row.qtde));
+        labels.push(new Date(row.data).toLocaleDateString());
+      });
+      var options = {
+        chart: {
+          height: 280,
+          type: "area"
+        },
+        dataLabels: {
+          enabled: false
+        },
+        series: [
+          {
+            name: "Quantidade",
+            data: data
+          }
+        ],
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 90, 100]
+          }
+        },
+        xaxis: {
+          categories: labels.reverse()
+        }
+      };
+      
+      var chart = new ApexCharts(document.querySelector("#chart-ingressos"), options);
+      
+      chart.render();
+    }
+  });
+}
+
+function carregaGraficos() {
+  carregaGraficoClientesUF(); 
+  carregaGraficoIngressos();
+}
+
+carregaGraficos();
