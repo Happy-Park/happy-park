@@ -1,12 +1,12 @@
 const db = require("../src/postgres").client;
 db.connect();
+const Cleave = require("cleave.js");
 const updateErrorLog = require("../src/postgres").updateErrorLog;
 window.jsPDF = window.jspdf.jsPDF;
 const downloadTable = document.getElementById("downloadTable");
 let currentClientSelected;
 var table = new Tabulator("#tableClient", {
   rowClick: function (e, row) {
-    //saves the client's name and email for the selected row
     currentClientSelected = row.getData().ID;
     editClientEmail(currentClientSelected);
   },
@@ -20,6 +20,13 @@ var table = new Tabulator("#tableClient", {
       headerFilter: true,
       headerFilterLiveFilter: true,
       headerFilterPlaceholder: "Filtar ID",
+    },
+    {
+      title: "Nome",
+      field: "Nome",
+      headerFilter: true,
+      headerFilterLiveFilter: true,
+      headerFilterPlaceholder: "Filtar Nome",
     },
     {
       title: "Descrição",
@@ -58,6 +65,12 @@ downloadTable.addEventListener("click", function () {
   });
 });
 
+new Cleave('#valor', {
+  numericOnly: true,
+  delimiter: '.',
+  blocks: [2,2]
+});
+
 // CRUD - create read update delete
 function deleteClient(ingresso) {
   if (ingresso != null && ingresso != undefined) {
@@ -84,7 +97,7 @@ const toDeleteClient = () => {
 };
 
 const updateClient = (index, ingresso) => {
-  const query = `UPDATE ingresso SET descricao = '${ingresso.descricao}', valor = ${ingresso.valor} WHERE id = ${index}`;
+  const query = `UPDATE ingresso SET descricao = '${ingresso.descricao}', valor = ${ingresso.valor}, nome='${ingresso.nome}' WHERE id = ${index}`;
   db.query(query, (err, res) => {
     if (err) {
       updateErrorLog(query, err);
@@ -97,7 +110,7 @@ const updateClient = (index, ingresso) => {
 };
 
 const createClient = (ingresso) => {
-  const query = `insert into ingresso values(default,${ingresso.valor},'${ingresso.descricao}')`;
+  const query = `insert into ingresso values(default,${ingresso.valor},'${ingresso.descricao}','${ingresso.nome}')`;
   db.query(query, (err, res) => {
     if (err) {
       updateErrorLog(query, err);
@@ -120,8 +133,10 @@ const updateTable = () => {
     } else {
       let i = 0;
       res.rows.forEach((element) => {
+        console.log(element)
         tableData[i] = {
           ID: element.id,
+          Nome: element.nome,
           Descrição: element.descricao,
           Valor: element.valor,
         };
@@ -134,6 +149,7 @@ const updateTable = () => {
 
 function fillFields(ingresso){
     document.getElementById("id").value = ingresso.id;
+    document.getElementById("nome").value = ingresso.nome;
     document.getElementById("name").value = ingresso.descricao;
     document.getElementById("valor").value = ingresso.valor;
 }
@@ -160,16 +176,18 @@ const clearFields = () => {
 const saveClient = (event) => {
   let ingresso = {
     id : document.getElementById("id").value,
+    nome: document.getElementById("nome").value,
     descricao: document.getElementById("name").value,
-    valor: document.getElementById("valor").value,
+    valor: document.getElementById("valor").value.replace(',','.'),
   };
   if (novo == true) {
-      document.getElementById("id").hidden = true;
+    document.getElementById("id").disabled = true
     createClient(ingresso);
     updateTable();
     closeModal();
     novo = false;
   } else {
+    document.getElementById("id").disabled = true
     let index;
     db.query(
       `select ingresso.id from ingresso where ingresso.id='${ingresso.id}'`,

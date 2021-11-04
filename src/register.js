@@ -4,7 +4,6 @@ const Cleave = require("cleave.js");
 require("cleave.js/dist/addons/cleave-phone.br");
 require("cleave.js/src/addons/phone-type-formatter.br");
 const crypto = require("crypto");
-const { table } = require("console");
 const updateErrorLog = require('../src/postgres').updateErrorLog
 const button = document.getElementById("login-btn");
 const name = document.getElementById("name");
