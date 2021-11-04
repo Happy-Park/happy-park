@@ -88,7 +88,7 @@ body {
 }
 
 #chart-clientes {
-   max-width: 300px;
+   max-width: 350px;
    background-color: white;
    margin: 0 auto;
    border-radius: 10px;
@@ -96,6 +96,19 @@ body {
 }
 
 #chart-clientes h3 {
+   margin: 0;
+   padding: 10px 0 0 10px;
+}
+
+#chart-ingressos {
+   max-width: 350px;
+   background-color: white;
+   margin: 0 auto;
+   border-radius: 10px;
+   margin: 35px auto;
+}
+
+#chart-ingressos h3 {
    margin: 0;
    padding: 10px 0 0 10px;
 }
