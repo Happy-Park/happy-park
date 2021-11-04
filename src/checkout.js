@@ -1,5 +1,6 @@
 let tickets = JSON.parse(sessionStorage.getItem("tickets"));
 let button = document.getElementById("finish-purchase");
+let info = document.getElementById('info')
 const db = require("../src/postgres").client;
 db.connect();
 let today = new Date();
@@ -18,6 +19,16 @@ const picker = new Litepicker({
     return totalDays - 1;
   },
 });
+let diff;
+picker.on("tooltip", (tooltip, date) => {
+  diff = tooltip.innerText //.substring(0, 2).replace(" ", "");
+});
+
+picker.on("selected", (start, finish) => {
+  info.innerText = diff
+  console.log(start.format("YYYY-MM-DD"));
+  console.log(finish.format("YYYY-MM-DD"));
+});
 button.addEventListener("click", () => {
   let user = JSON.parse(sessionStorage.getItem("user"));
   if (picker.getDate() === null || picker.getDate() === undefined) {
@@ -27,18 +38,20 @@ button.addEventListener("click", () => {
   // if(picker.getStartDate().format('YYYY-MM-DD') > today.getDate()){
   //      alert("Data inválida");
   //   }
-  let date =today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  let date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
   tickets.forEach((ticket) => {
-      let total = ticket.valor * ticket.quantidade
+    let total = ticket.valor * ticket.quantidade;
     let query = `insert into vendingresso values(default,'${date}', '${picker
       .getEndDate()
-      .format("YYYY-MM-DD")}', ${total},${ticket.quantidade},${
-      ticket.id},${user.id},2)`;
+      .format("YYYY-MM-DD")}', ${total},${ticket.quantidade},${ticket.id},${
+      user.id
+    },2)`;
     db.query(query, (err, res) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(res);
+        window.location.href = "../pages/home_user.html";
       }
     });
   });

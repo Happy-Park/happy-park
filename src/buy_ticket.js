@@ -1,18 +1,5 @@
 const db = require("../src/postgres").client;
 db.connect();
-// const { Litepicker } = require('litepicker')
-// const picker = new Litepicker({
-//     element: document.getElementById('datepicker'),
-//     allowRepick: true,
-//     singleMode: false,
-//     tooltipText: {
-//       one: 'night',
-//       other: 'nights'
-//     },
-//     tooltipNumber: (totalDays) => {
-//       return totalDays - 1;
-//     }
-// })
 
 let tickets = document.getElementById("select-ticket");
 function createTicketCard(ticket) {
@@ -20,6 +7,9 @@ function createTicketCard(ticket) {
   card.classList.add("ticket-type");
   card.id = ticket.id;
   card.innerHTML = `
+  <span>Nome:</span>
+  <span id="nome">${ticket.nome}</span>
+  <br>
   <span>Descrição:</span>
   <span id="descricao">${ticket.descricao}</span>
   <br>
@@ -59,6 +49,7 @@ confirmButton.addEventListener("click", () => {
     let ticket = document.getElementById(id);
     let ticketTemp = {
       id: ticket.id,
+      nome: ticket.querySelector("#descricao").innerText,
       descricao: ticket.querySelector("#descricao").innerText,
       valor: ticket.querySelector("#preco").innerText,
       quantidade: ticket.querySelector("#quantidade").value,
