@@ -1,0 +1,194 @@
+body, html{
+    height: 100%;
+    width: 100%;
+ }
+ 
+ body {
+    margin: 0;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+   background:
+      linear-gradient(
+        rgba(0, 0, 0, 0.7), 
+        rgba(0, 0, 0, 0.8)
+      ),
+      url(../assets/background_main.jpg);
+    background-size: cover;
+  }
+ 
+ #menu {
+    text-align: center;
+    height: 100%;
+    padding: 0%;
+    margin: 0%;
+    background-color: white;
+    width: 7%;
+    font-size: 75%;
+ }
+ 
+ #menu ul{
+    margin: 0%;
+    padding: 2vw 0vw 2vw 0vw;
+ }
+ 
+ #menu li{
+    list-style: none;
+    padding: 3vh 0 0 0;
+    text-decoration: none;
+ }
+ 
+ #menu li a{
+    text-decoration: none;
+ }
+ 
+ #menu li p{
+    text-decoration: none;
+    margin: 0;
+ }
+ 
+ #menu li a img{
+    width: 4vw;
+ }
+ 
+ #center {
+    width: 93%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+ }
+ 
+ #principal {
+    background-color: white;
+    width: 94%;
+    height: 90%;
+    border-radius: 10px;
+    display: block;
+ }
+ 
+ #principal h2 {
+    margin: 2% 0% 0% 3%;
+    font-size: 2.5vw;
+    width: fit-content;
+    float: left;
+ }
+
+ 
+ #downloadTable{
+    margin: 1.5% 3% 1% 0;
+     box-shadow:inset 0px 1px 0px 0px #ffa200;
+     background:linear-gradient(to bottom, #ffa200 5%, #e08e00 100%);
+     background-color:#89c403;
+     border-radius:6px;
+     border:1px solid #f5b000;
+     cursor:pointer;
+     color:#ffffff;
+     font-family:Arial;
+     font-weight:bold;
+     padding: 1%;
+     text-decoration:none;
+     text-shadow:0px 1px 0px #ffcc00;
+    float: right;
+ }
+ 
+ #tableErros {
+    height: 90%;
+    width:87.3vw;
+    margin-top: 3%;
+    /* display: flex; */
+    justify-content: center;
+ }
+ 
+ .modal{
+   position: fixed;
+   top:0;
+   left:0;
+   width: 100%;
+   height: 40%;
+   background: #00000090;
+   opacity: 0;
+   z-index: -1;
+}
+
+.modal.active{
+   opacity: 1;
+   z-index: 1;
+}
+
+.modal-content{
+   display: flex;
+   flex-direction: column;
+   gap:10px;
+   flex-wrap: wrap;
+   width: 50vw;
+   margin: 10vh auto;
+   padding-bottom: 20px;
+   background-color: white;
+   box-shadow: 1px 1px 10px black;
+   height: 100%;
+}
+
+.modal-header{
+   display: flex;
+   position: relative;
+   justify-content: center;
+   height: 40px;
+   line-height: 40px;
+   font-size: 1rem;
+}
+
+.modal h2{
+   font-size: 17px;
+   margin: 0;
+   align-self: center;
+}
+.valores{
+   width: 50%;
+}
+
+.modal-close{
+   position: absolute;
+   right: 0;
+   display: block;
+   width: 40px;
+   height: 40px;
+   text-align: center;
+   user-select: none;
+   cursor: pointer;
+}
+
+.modal-close:hover{
+   background-color: #FF4949;
+   color: white;
+}
+
+.modal-form{
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   gap: 10px;
+   padding: 0 20px;
+}
+
+.modal-form textarea{
+   width: 100%;
+   height: 10vh;
+}
+
+.modal-field{
+   width: calc(20% - 10px);
+   height: 40px;
+   outline-style: none;
+   border-style: none;
+   box-shadow: 0 0 2px black;
+   padding: 0 10px;
+   font-size:1rem;
+}
+
+.modal-field:focus{
+   border: 2px solid orange;
+   box-shadow: 0 0 3px orange;
+}

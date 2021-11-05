@@ -3,6 +3,7 @@ db.connect()
 const updateErrorLog = require('../src/postgres').updateErrorLog
 window.jsPDF = window.jspdf.jsPDF;
 const downloadTable = document.getElementById("downloadTable");
+const errorTable = document.getElementById('erroTable')
 let rowId;
 var table = new Tabulator("#tableLogs", {
   rowClick: function (e, row) {
@@ -54,8 +55,12 @@ var table = new Tabulator("#tableLogs", {
 let tableData = [];
 
 downloadTable.addEventListener("click", function () {
-  table.download("pdf", "TabelaFuncionarios.pdf");
+  table.download("pdf", "TabelaAuditoria.pdf");
 });
+
+errorTable.addEventListener('click', () => {
+  window.location.href = '../pages/errorTable.html'
+})
 
 const updateTable = () => {
   table.clearData();
