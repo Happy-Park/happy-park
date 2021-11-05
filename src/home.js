@@ -1,8 +1,8 @@
 require("dotenv/config");
-window.ApexCharts = require('apexcharts');
+window.ApexCharts = require("apexcharts");
 let wheater = document.getElementById("weather");
 const db = require("../src/postgres").client;
-db.connect()
+db.connect();
 let wheaterDescription = document.getElementById("weather-description");
 let hour = document.getElementById("hour");
 let img = document.getElementById("img-weather");
@@ -72,10 +72,10 @@ function startTime() {
 
 startTime();
 
-let user = JSON.parse(sessionStorage.getItem('user'));
+let user = JSON.parse(sessionStorage.getItem("user"));
 console.log(user.id);
 let query = `select * from set_logado(${user.id})`;
-window.addEventListener('load', function(){
+window.addEventListener("load", function () {
   db.query(query, (err, res) => {
     if (err) {
       console.log(err);
@@ -87,7 +87,7 @@ window.addEventListener('load', function(){
   });
 });
 
-window.addEventListener('beforeunload' ,function() {
+window.addEventListener("beforeunload", function () {
   db.query(query, (err, res) => {
     if (err) {
       console.log(err);
@@ -117,21 +117,26 @@ function carregaGraficoClientesUF() {
         series: data,
         labels: labels,
         chart: {
-        type: 'donut',
-      },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200
+          type: "donut",
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200,
+              },
+              legend: {
+                position: "bottom",
+              },
+            },
           },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }]
+        ],
       };
-      var chart = new ApexCharts(document.querySelector("#chart-clientes"), options);
+      var chart = new ApexCharts(
+        document.querySelector("#chart-clientes"),
+        options
+      );
       chart.render();
     }
   });
@@ -154,16 +159,16 @@ function carregaGraficoIngressos() {
       var options = {
         chart: {
           height: 280,
-          type: "area"
+          type: "area",
         },
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         series: [
           {
             name: "Quantidade",
-            data: data
-          }
+            data: data,
+          },
         ],
         fill: {
           type: "gradient",
@@ -171,24 +176,63 @@ function carregaGraficoIngressos() {
             shadeIntensity: 1,
             opacityFrom: 0.7,
             opacityTo: 0.9,
-            stops: [0, 90, 100]
-          }
+            stops: [0, 90, 100],
+          },
         },
         xaxis: {
-          categories: labels.reverse()
-        }
+          categories: labels.reverse(),
+        },
       };
-      
-      var chart = new ApexCharts(document.querySelector("#chart-ingressos"), options);
-      
+
+      var chart = new ApexCharts(
+        document.querySelector("#chart-ingressos"),
+        options
+      );
+
       chart.render();
     }
   });
 }
 
+function ingressosMaisVendidos() {
+  let container = document.getElementById("chart-maisVendidos");
+  query = `select sum(valortotal) as valor, sum(quantidade) as qtde, ingresso from VENDINGRESSO group by ingresso order by valor desc;`;
+  db.query(query, (err, res) => {
+    if (err) {
+      console.log(err);
+      updateErrorLog(query, err);
+      return;
+    } else {
+      let data = [];
+      res.rows.forEach((row) => {
+        let obj = {
+          ingresso: row.ingresso,
+          quantidade: row.qtde,
+          valor: Math.round(row.valor * 100) / 100,
+        };
+        data.push(obj);
+      });
+      data.forEach((element) => {
+        let box = document.createElement("div")
+        box.classList.add('box')
+        box.innerHTML = `<h1>Ingresso: ${element.ingresso}</h1>`
+        let card = document.createElement("div")
+        card.classList.add("card");
+        card.innerHTML = `
+        <h3>Quantidade Total: ${element.quantidade}</h3>
+        <h3>Valor Total: ${element.valor}</h3>
+        `;
+        box.append(card)
+        container.append(box);
+      });
+    }
+  });
+}
+
 function carregaGraficos() {
-  carregaGraficoClientesUF(); 
+  carregaGraficoClientesUF();
   carregaGraficoIngressos();
+  ingressosMaisVendidos();
 }
 
 carregaGraficos();
