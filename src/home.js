@@ -124,7 +124,7 @@ function carregaGraficoClientesUF() {
             breakpoint: 480,
             options: {
               chart: {
-                width: 200,
+                width: 250,
               },
               legend: {
                 position: "bottom",
@@ -158,7 +158,7 @@ function carregaGraficoIngressos() {
       });
       var options = {
         chart: {
-          height: 280,
+          height: 250,
           type: "area",
         },
         dataLabels: {
@@ -195,8 +195,7 @@ function carregaGraficoIngressos() {
 }
 
 function ingressosMaisVendidos() {
-  let container = document.getElementById("chart-maisVendidos");
-  query = `select sum(valortotal) as valor, sum(quantidade) as qtde, ingresso from VENDINGRESSO group by ingresso order by valor desc;`;
+  query = `select sum(vi.quantidade) as qtde, ig.descricao as ingresso from VENDINGRESSO VI, INGRESSO IG where vi.ingresso=ig.id  group by ig.descricao order by qtde desc`;
   db.query(query, (err, res) => {
     if (err) {
       console.log(err);
@@ -204,27 +203,48 @@ function ingressosMaisVendidos() {
       return;
     } else {
       let data = [];
+      let labels = [];
       res.rows.forEach((row) => {
-        let obj = {
-          ingresso: row.ingresso,
-          quantidade: row.qtde,
-          valor: Math.round(row.valor * 100) / 100,
-        };
-        data.push(obj);
+        data.push(parseInt(row.qtde));
+        labels.push(row.ingresso);
       });
-      data.forEach((element) => {
-        let box = document.createElement("div")
-        box.classList.add('box')
-        box.innerHTML = `<h1>Ingresso: ${element.ingresso}</h1>`
-        let card = document.createElement("div")
-        card.classList.add("card");
-        card.innerHTML = `
-        <h3>Quantidade Total: ${element.quantidade}</h3>
-        <h3>Valor Total: ${element.valor}</h3>
-        `;
-        box.append(card)
-        container.append(box);
-      });
+      var options = {
+        series: [{
+        data: data
+      }],
+        chart: {
+        height: 200,
+        type: 'bar',
+        events: {
+          click: function(chart, w, e) {
+            // console.log(chart, w, e)
+          }
+        }
+      },
+      plotOptions: {
+        bar: {
+          columnWidth: '45%',
+          distributed: true,
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      legend: {
+        show: false
+      },
+      xaxis: {
+        categories: labels,
+        labels: {
+          style: {
+            fontSize: '12px'
+          }
+        }
+      }
+      };
+
+      var chart = new ApexCharts(document.querySelector("#chart-maisVendidos"), options);
+      chart.render();
     }
   });
 }

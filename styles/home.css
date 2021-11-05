@@ -50,7 +50,7 @@ body {
 }
 
 #menu li a img{
-   width: 4vw;
+   width: 3vw;
 }
 
 #center {
@@ -76,7 +76,7 @@ body {
 }
 
 #img-weather {
-   width: 4vw;
+   width: 3vw;
    margin: 0 0 0 0;
    padding: 0;
 }
@@ -99,10 +99,11 @@ body {
    justify-content: center;
    align-items: center;
    max-width: 350px;
+   min-width: 350px;
    background-color: white;
-   margin: 0 auto;
    border-radius: 10px;
-   margin: 35px auto;
+   padding: 5px;
+   margin: 10px;
 }
 
 #chart-clientes h3, #chart-ingressos h3 {
@@ -119,26 +120,4 @@ body {
    gap: 1%;
    flex-wrap: wrap;
    width: 100%;
-}
-
-.box{
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-wrap: wrap;
-}
-
-.box h1{
-   width: 100%;
-   margin: 0 auto;
-  background-color:aquamarine;
-}
-#container{
-   background-color: aqua;
-   width: 100%;
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: center;
-   align-items: center;
 }
