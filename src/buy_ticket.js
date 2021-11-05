@@ -19,7 +19,8 @@ function createTicketCard(ticket) {
 <span>Quantidade:</span>
 <input type="number" id="quantidade">
 <br>
-<input class="checkbox" type="checkbox">`;
+<br>
+Selecionar <input class="checkbox" type="checkbox">`;
   tickets.appendChild(card);
 }
 
