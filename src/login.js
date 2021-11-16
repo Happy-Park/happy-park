@@ -69,7 +69,7 @@ button.addEventListener("click", function () {
           else {
             window.location.href = "../pages/home_user.html";
             let user = {
-              "user": 'worker',
+              "user": 'client',
               "ip": ip,
               "id": res.rows[0].id
             }

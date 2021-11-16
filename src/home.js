@@ -154,7 +154,7 @@ function carregaGraficoIngressos() {
       let labels = [];
       res.rows.forEach((row) => {
         data.push(parseInt(row.qtde));
-        labels.push(new Date(row.data).toLocaleDateString());
+        labels.push(new Date(row.data).toLocaleDateString('pt-br'));
       });
       var options = {
         chart: {
@@ -210,6 +210,7 @@ function ingressosMaisVendidos() {
       });
       var options = {
         series: [{
+          name: "Quantidade",
         data: data
       }],
         chart: {

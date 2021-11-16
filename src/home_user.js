@@ -16,3 +16,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.marker([-29.4446788,-51.9583461]).addTo(map).bindPopup('Happy Park');
 
+let userAccountButton = document.getElementById('user-account')
+
+userAccountButton.addEventListener('click', () => {
+    window.location.href = '../pages/user_account.html'
+})
