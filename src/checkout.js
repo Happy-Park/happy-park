@@ -1,6 +1,6 @@
 let tickets = JSON.parse(sessionStorage.getItem("tickets"));
 let button = document.getElementById("finish-purchase");
-let info = document.getElementById('info')
+let info = document.getElementById("info");
 const db = require("../src/postgres").client;
 db.connect();
 const notyf = new Notyf({
@@ -13,6 +13,7 @@ const notyf = new Notyf({
 let today = new Date();
 const { Litepicker } = require("litepicker");
 const picker = new Litepicker({
+  minDate: today,
   lang: "pt",
   format: "YYYY-MM-DD",
   element: document.getElementById("datepicker"),
@@ -28,11 +29,11 @@ const picker = new Litepicker({
 });
 let diff;
 picker.on("tooltip", (tooltip, date) => {
-  diff = tooltip.innerText //.substring(0, 2).replace(" ", "");
+  diff = tooltip.innerText; //.substring(0, 2).replace(" ", "");
 });
 
 picker.on("selected", (start, finish) => {
-  info.innerText = diff
+  info.innerText = diff;
   console.log(start.format("YYYY-MM-DD"));
   console.log(finish.format("YYYY-MM-DD"));
 });
@@ -48,6 +49,7 @@ button.addEventListener("click", () => {
   let date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
   tickets.forEach((ticket) => {
+    console.log(picker.getEndDate().format("YYYY-MM-DD"));
     let total = ticket.valor * ticket.quantidade;
     let query = `insert into vendingresso values(default,'${date}', '${picker
       .getEndDate()
@@ -60,7 +62,9 @@ button.addEventListener("click", () => {
         notyf.success("Erro ao finalizar compra. Verifique!");
       } else {
         notyf.success("Ingressos comprados com sucesso!");
-        window.location.href = "../pages/home_user.html";
+        setTimeout(() => {
+          window.location.href = "../pages/home_user.html";
+        }, 2000);
       }
     });
   });
