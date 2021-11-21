@@ -1,0 +1,67 @@
+body, html{
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+  display: inline-flex;
+  background:
+     /* top, transparent black, faked with gradient */ 
+     linear-gradient(
+        rgba(0, 0, 0, 0.2), 
+        rgba(0, 0, 0, 0.3)
+     ),
+     /* bottom, image */
+     url(../assets/background_main.jpg);
+     background-size: cover;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+#box {
+  width: 50vw;
+  height: 80vh;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+#container #return{
+  box-shadow: 0px 2px 4px 0px #878787;
+  width: 30%;
+	background-color:white;
+	border-radius:15px;
+	border:2px solid white;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	padding: 3%;
+	text-decoration:none;
+  margin-top: 5%;
+  margin-bottom: 5%;  
+}
+
+#map {
+  height: 50vh; 
+  border: 2px solid black;
+  width: 45vw;
+  margin-bottom: 5px;
+}
