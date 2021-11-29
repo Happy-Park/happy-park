@@ -1,7 +1,7 @@
 let db = require("../src/postgres").client;
 let loggedUser = JSON.parse(sessionStorage.getItem("user"));
 db.connect();
-const ticketsContainer = document.getElementById("tickets");
+const ticketsContainer = document.getElementById("tickets-inside");
 let nomeField = document.getElementById("nome");
 let emailField = document.getElementById("email");
 let celularField = document.getElementById("celular");
@@ -31,6 +31,7 @@ db.query(
 );
 
 function createTicketDetail(ingresso, valor, quantidade, validade) {
+  ticketsContainer.style.height = "60vh"
   let card = document.createElement("div");
   card.classList.add("ticket-details");
   card.innerHTML = `

@@ -68,7 +68,7 @@ p {
 
 #tickets {
   display: flex;
-  width: 50%;
+  width: 65%;
   background-color: aqua;
   border: 1px solid black;
   justify-content: center;
@@ -85,4 +85,8 @@ p {
 }
 #tickets input:last-of-type{
   width:15%;
+}
+
+#tickets-inside{
+  overflow-y: auto;
 }
