@@ -88,7 +88,7 @@ const readAtracao = (index) => {
 
 
 const updateatracaocateg = (index, atracaoCateg) => {
-  const query = `UPDATE atracaocateg SET descricao = '${atracaoCateg.descricao}',situacao =${atracao.situacao} WHERE id = ${index}`;
+  const query = `UPDATE atracaocateg SET descricao = '${atracaoCateg.descricao}',situacao =${atracaoCateg.situacao} WHERE id = ${index}`;
   db.query(query, (err, res) => {
     if (err) {
       updateErrorLog(query, err);
