@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../node_modules/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <link rel="stylesheet" href="../styles/register_shop.css" />
+    <title>Cadastro de Categoria de lojas</title>
+
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="menu">
+      <ul>
+        <li><a href="./register_ticket.html"><img src="../assets/img/product.png" alt="Ingressos" title="Ingressos"><p>Ingressos</p></a></li>
+        <li><a href="./tableLogs.html"><img src="../assets/img/pencil.png"  alt="Auditoria" title="Auditoria"><p>Auditoria</p></a></li>
+        <li><a href="../pages/clients.html"><img src="../assets/img/client.png" alt="Cliente" title="Cliente"><p>Clientes</p></a></li>
+        <li><a href="../pages/registerWorker.html"><img src="../assets/img/workers.png" alt="Funcionário" title="Funcionário"><p>Funcionários</p></a></li>
+        <li><a href="../pages/register_shop.html"><img src="../assets/img/shop.png" alt="Loja" title="Loja"><p>Lojas</p></a></li>
+        <li><a href="../pages/register_atracao.html"><img src="../assets/img/atracoes.png" alt="Atração" title="Atração"><p>Atrações</p></a></li>
+    </ul>
+    </div> 
+    <div id="center">
+      <div id="principal">
+        <h2>Cadastro de categoria de loja</h2>
+        <button id="cadastrarLoja"> Cadastrar categoria</button>
+        <table id="tableLoja" class="records">
+      </table>
+      </div>
+    </div>
+
+    <div class="modal" id="modal">
+      <div class="modal-content">
+          <header class="modal-header">
+              <h2>Nova Categoria Loja</h2>
+              <span class="modal-close" id="modalClose">&#10006;</span>
+          </header>
+          <form id="form" class="modal-form">
+              <input id="descricao" data-index="new" class="modal-field" placeholder="Descrição" required>
+              <input class="modal-field" id="situacao" placeholder="Situação" minlength="1" maxlength="1"/>
+              <!-- add pra fazer upload img -->
+          </form>
+          <footer class="modal-footer">
+            <button id="deletar">Deletar</button>
+              <button id="salvar" class="button green">Salvar</button>
+              <button id="cancelar" class="button blue">Cancelar</button>
+          </footer>
+      </div>
+    </div>
+
+    <script src="../node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+<script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
+    <script type="text/javascript" src="../node_modules/tabulator-tables/dist/js/tabulator.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script src="../src/register_categLoja.js"></script>  
+    <script src="../src/defineRole.js"></script>
+  </body>
+</html>

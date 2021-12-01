@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../node_modules/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <link rel="stylesheet" href="../styles/register_shop.css" />
-    <title>Cadastrar uma loja</title>
+    <title>Cadastro de Lojas</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
-    />
     <!-- Import Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   </head>
-
   <body>
-
     <div id="menu">
       <ul>
         <li><a href="./register_ticket.html"><img src="../assets/img/product.png" alt="Ingressos" title="Ingressos"><p>Ingressos</p></a></li>
@@ -30,44 +23,42 @@
         <li><a href="../pages/register_shop.html"><img src="../assets/img/shop.png" alt="Loja" title="Loja"><p>Lojas</p></a></li>
         <li><a href="../pages/register_atracao.html"><img src="../assets/img/atracoes.png" alt="Atração" title="Atração"><p>Atrações</p></a></li>
       </ul>
-        <div id="weather-principal">
-          <img id="img-weather" src="" alt="">
-          <h2 id="weather-description"></h2>
-          <h2 id="weather"></h2>
-          <h2 id="hour"></h2>
-          <!-- <h2 id="forecast">Previsão para amanhã:</h2> -->
-        </div>
-    </div> 
-
-    <div id="half2">
-      <div class="flex-box container-box">
-        <div class="content-box">
-          <div id="register">
-            <h2 id="register">Cadastrar uma loja</h2>
-            <div id="inputs">
-              <input id="name" type="text" placeholder="Nome" required />
-              <input id="owner" type="text" placeholder="Dono" />
-              <input id="email" type="email" placeholder="Email" required />
-              <input class="cnpj" id="cnpj" type="text"  placeholder="CNPJ"/>
-              <div id="category-div">
-                <select
-                  id="category"
-                  type="text"
-                  placeholder="Categoria"
-                  required
-                ></select>
-              </div>
-            </div>
-            <button id="register-btn">Registrar</button>
-          </div>
-        </div>
+      </div> 
+    <div id="center">
+      <div id="principal">
+        <h2>Cadastro de Loja</h2>
+        <a href="./register_categLoja.html"><button id="registrarCateg">Registrar categoria</button></a> 
+        <button id="cadastrarLoja"> Cadastrar Loja</button>
+        <button id="downloadTable">Download Tabela PDF</button>
+        <table id="tableLoja" class="records">
+      </table>
       </div>
     </div>
-    <script src="../src/categories.js"></script>
-    <script src="../node_modules/cleave.js/dist/cleave.min.js"></script>
+
+    <div class="modal" id="modal">
+      <div class="modal-content">
+          <header class="modal-header">
+              <h2>Nova Loja</h2>
+              <span class="modal-close" id="modalClose">&#10006;</span>
+          </header>
+          <form id="form" class="modal-form">
+              <input type="text" id="name" data-index="new" class="modal-field" placeholder="Nome da loja" required>
+              <input class="modal-field" minlength="14" maxlength="14" id="cnpj" placeholder="CNPJ" required/>
+              <select class="modal-field" type="checkbox" id="lojaCateg"></select>
+          </form>
+          <footer class="modal-footer">
+            <button id="deletar">Deletar</button>
+              <button id="salvar" class="button green">Salvar</button>
+              <button id="cancelar" class="button blue">Cancelar</button>
+          </footer>
+      </div>
+    </div>
+
+    <script src="../node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+<script src="../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
+    <script type="text/javascript" src="../node_modules/tabulator-tables/dist/js/tabulator.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <script src="../src/register_shop.js"></script>
+    <script src="../src/register_shop.js"></script>  
     <script src="../src/defineRole.js"></script>
-    
   </body>
 </html>
