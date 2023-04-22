@@ -23,8 +23,8 @@
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^10.0.0",
-    "electron": "^13.6.0",
-    "electron-packager": "^15.3.0",
+    "electron": "^24.1.2",
+    "electron-packager": "^17.1.1",
     "electron-rebuild": "^3.1.1",
     "husky": "^7.0.4",
     "pg": "^8.7.1"
